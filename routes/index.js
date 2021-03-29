@@ -16,7 +16,7 @@ router.get('/getCats', async (req, res) => {
     // TODO: DO NOT PROCESS DATA HERE, process data in a seperate file
     dataRaw.forEach((cat) => {
       data.push({
-        id: cat._id,
+        cat_id: cat._id,
         age: cat.age,
         gender: cat.gender,
         size: cat.size,
@@ -24,7 +24,7 @@ router.get('/getCats', async (req, res) => {
         photo: eval(cat.med_photos)[0],
       });
     });
-    res.status(200).send(data);
+    res.status(200).send({ cats: data });
   } catch (e) {
     console.error('Error', e);
     res.status(400).send({ err: e });
@@ -74,6 +74,50 @@ router.post('/loginUser', async (req, res) => {
         res.status(401).send({ login: 'wrong password' });
       }
     }
+  } catch (e) {
+    console.error('Error', e);
+    res.status(400).send({ err: e });
+  }
+});
+
+/* Save a cat to user's collections */
+router.post('/saveCat', async (req, res) => {
+  try {
+    // TODO: get username from session
+    const username = 'xingyu711';
+    const catId = req.body.cat_id;
+
+    await myDB.addToCollections(username, catId);
+    res.sendStatus(200);
+  } catch (e) {
+    console.error('Error', e);
+    res.status(400).send({ err: e });
+  }
+});
+
+// unsave a cat from user's collections
+router.post('/unsaveCat', async (req, res) => {
+  try {
+    // TODO: get username from session
+    const username = 'xingyu711';
+    const catId = req.body.cat_id;
+
+    await myDB.deleteFromCollections(username, catId);
+    res.sendStatus(200);
+  } catch (e) {
+    console.error('Error', e);
+    res.status(400).send({ err: e });
+  }
+});
+
+// load data saved in user's collections
+router.get('/getCollections', async (req, res) => {
+  try {
+    // TODO: get username from session
+    const username = 'xingyu711';
+
+    const savedCats = await myDB.getUserCollections(username);
+    res.status(200).send({ cats: savedCats });
   } catch (e) {
     console.error('Error', e);
     res.status(400).send({ err: e });
