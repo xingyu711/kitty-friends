@@ -6,10 +6,22 @@ const myDB = require('../db/myDB.js');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
+function auth(req, res) {
+  if (!req.session.username) {
+    res.status(401).send({ err: 'user not logged in' });
+    return false;
+  }
+  return true;
+}
+
 /* Get cats data */
 router.get('/getCats', async (req, res) => {
   // TODO: pagination
   try {
+    if (!auth(req, res)) {
+      return;
+    }
+
     const dataRaw = await myDB.getCats();
     const data = [];
 
@@ -43,6 +55,8 @@ router.post('/registerUser', async (req, res) => {
     await bcrypt.hash(password, saltRounds, async function (err, hash) {
       const msg = await myDB.registerUser(username, hash, firstname, lastname);
       if (msg === 'success') {
+        // save username to session
+        req.session.username = username;
         res.sendStatus(200);
       } else {
         res.status(409).send({ register: msg });
@@ -57,7 +71,6 @@ router.post('/registerUser', async (req, res) => {
 /* Login a user */
 router.post('/loginUser', async (req, res) => {
   try {
-    console.log(req.body);
     const username = req.body.username;
     const password = req.body.password;
     // ask db to validate this user
@@ -69,6 +82,8 @@ router.post('/loginUser', async (req, res) => {
     } else {
       const match = await bcrypt.compare(password, hash);
       if (match == true) {
+        // save username to session if successfully logged in
+        req.session.username = username;
         res.sendStatus(200);
       } else {
         res.status(401).send({ login: 'wrong password' });
@@ -83,8 +98,11 @@ router.post('/loginUser', async (req, res) => {
 /* Save a cat to user's collections */
 router.post('/saveCat', async (req, res) => {
   try {
-    // TODO: get username from session
-    const username = 'xingyu711';
+    if (!auth(req, res)) {
+      return;
+    }
+
+    const username = req.session.username;
     const catId = req.body.cat_id;
 
     await myDB.addToCollections(username, catId);
@@ -95,11 +113,10 @@ router.post('/saveCat', async (req, res) => {
   }
 });
 
-// unsave a cat from user's collections
+/* Unsave a cat from user's collections */
 router.post('/unsaveCat', async (req, res) => {
   try {
-    // TODO: get username from session
-    const username = 'xingyu711';
+    const username = req.session.username;
     const catId = req.body.cat_id;
 
     await myDB.deleteFromCollections(username, catId);
@@ -110,14 +127,26 @@ router.post('/unsaveCat', async (req, res) => {
   }
 });
 
-// load data saved in user's collections
+/* load data saved in user's collections */
 router.get('/getCollections', async (req, res) => {
   try {
-    // TODO: get username from session
-    const username = 'xingyu711';
+    const username = req.session.username;
 
     const savedCats = await myDB.getUserCollections(username);
     res.status(200).send({ cats: savedCats });
+  } catch (e) {
+    console.error('Error', e);
+    res.status(400).send({ err: e });
+  }
+});
+
+router.get('/getPersonName', async (req, res) => {
+  try {
+    const username = req.session.username;
+
+    //ask db to find the user's display name
+    const displayName = await myDB.getUserDisplayName(username);
+    res.status(200).send({ displayName: displayName });
   } catch (e) {
     console.error('Error', e);
     res.status(400).send({ err: e });

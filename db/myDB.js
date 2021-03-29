@@ -186,6 +186,30 @@ async function getUserCollections(username) {
   }
 }
 
+async function getUserDisplayName(username) {
+  let client;
+
+  try {
+    client = new MongoClient(uri, { useUnifiedTopology: true });
+    await client.connect();
+
+    const db = client.db(DB_NAME);
+    const users = db.collection('users');
+
+    if (!username) {
+      return {};
+    }
+
+    // get this user from db
+    const currentUser = await users.findOne({ username: username });
+    const displayName = currentUser.first_name + ' ' + currentUser.last_name;
+
+    return displayName;
+  } finally {
+    client.close();
+  }
+}
+
 module.exports = {
   getCats,
   registerUser,
@@ -193,4 +217,5 @@ module.exports = {
   addToCollections,
   deleteFromCollections,
   getUserCollections,
+  getUserDisplayName,
 };
