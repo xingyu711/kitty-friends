@@ -186,6 +186,22 @@ async function getUserCollections(username) {
   }
 }
 
+async function addCat(catData) {
+  let client;
+
+  try {
+    client = new MongoClient(uri, { useUnifiedTopology: true });
+    await client.connect();
+
+    const db = client.db(DB_NAME);
+    const cats = db.collection('cats');
+
+    await cats.insertOne(catData);
+  } finally {
+    client.close();
+  }
+}
+
 async function deleteFromPosts(username, catId) {
   let client;
 
@@ -258,7 +274,8 @@ module.exports = {
   addToCollections,
   deleteFromCollections,
   getUserCollections,
+  addCat,
   getUserPosts,
-  getUserDisplayName,
   deleteFromPosts,
+  getUserDisplayName,
 };

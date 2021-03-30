@@ -95,6 +95,19 @@ router.post('/loginUser', async (req, res) => {
   }
 });
 
+router.get('/logoutUser', async (req, res) => {
+  try {
+    if (!auth(req, res)) {
+      return;
+    }
+    delete req.session.username;
+    res.sendStatus(200);
+  } catch (e) {
+    console.error('Error', e);
+    res.status(400).send({ err: e });
+  }
+});
+
 /* Save a cat to user's collections */
 router.post('/saveCat', async (req, res) => {
   try {
@@ -116,6 +129,10 @@ router.post('/saveCat', async (req, res) => {
 /* Unsave a cat from user's collections */
 router.post('/unsaveCat', async (req, res) => {
   try {
+    if (!auth(req, res)) {
+      return;
+    }
+
     const username = req.session.username;
     const catId = req.body.cat_id;
 
@@ -130,10 +147,37 @@ router.post('/unsaveCat', async (req, res) => {
 /* Load data saved in user's collections */
 router.get('/getCollections', async (req, res) => {
   try {
+    if (!auth(req, res)) {
+      return;
+    }
+
     const username = req.session.username;
 
     const savedCats = await myDB.getUserCollections(username);
     res.status(200).send({ cats: savedCats });
+  } catch (e) {
+    console.error('Error', e);
+    res.status(400).send({ err: e });
+  }
+});
+
+router.post('/postCat', async (req, res) => {
+  try {
+    if (!auth(req, res)) {
+      return;
+    }
+
+    // get username from session and add username to data object
+    const username = req.session.username;
+
+    // get data from request body. ASSUMED: data in correct format and photo is a url string
+    console.log(req.body);
+    const catData = req.body;
+    catData.username = username;
+
+    await myDB.addCat(catData);
+
+    res.sendStatus(200);
   } catch (e) {
     console.error('Error', e);
     res.status(400).send({ err: e });
