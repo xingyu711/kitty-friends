@@ -186,6 +186,47 @@ async function getUserCollections(username) {
   }
 }
 
+async function deleteFromPosts(username, catId) {
+  let client;
+
+  try {
+    client = new MongoClient(uri, { useUnifiedTopology: true });
+    await client.connect();
+
+    const db = client.db(DB_NAME);
+    const cats = db.collection('cats');
+
+    // delete by car id
+    const query = { _id: new ObjectId(catId) };
+    await cats.deleteOne(query);
+  } finally {
+    client.close();
+  }
+}
+
+async function getUserPosts(username) {
+  let client;
+
+  try {
+    client = new MongoClient(uri, { useUnifiedTopology: true });
+    await client.connect();
+
+    const db = client.db(DB_NAME);
+    const cats = db.collection('cats');
+
+    if (!username) {
+      return [];
+    }
+    // query using username and get all cars posted by this user
+    const query = { username: username };
+    const userPosts = await cats.find(query).toArray();
+
+    return userPosts;
+  } finally {
+    client.close();
+  }
+}
+
 async function getUserDisplayName(username) {
   let client;
 
@@ -217,5 +258,7 @@ module.exports = {
   addToCollections,
   deleteFromCollections,
   getUserCollections,
+  getUserPosts,
   getUserDisplayName,
+  deleteFromPosts,
 };

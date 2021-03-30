@@ -127,13 +127,47 @@ router.post('/unsaveCat', async (req, res) => {
   }
 });
 
-/* load data saved in user's collections */
+/* Load data saved in user's collections */
 router.get('/getCollections', async (req, res) => {
   try {
     const username = req.session.username;
 
     const savedCats = await myDB.getUserCollections(username);
     res.status(200).send({ cats: savedCats });
+  } catch (e) {
+    console.error('Error', e);
+    res.status(400).send({ err: e });
+  }
+});
+
+/* delete a post in user's home page */
+router.post('/deletePost', async (req, res) => {
+  try {
+    if (!auth(req, res)) {
+      return;
+    }
+    const username = req.session.username;
+    const catId = req.body.cat_id;
+
+    await myDB.deleteFromPosts(username, catId);
+    res.sendStatus(200);
+  } catch (e) {
+    console.error('Error', e);
+    res.status(400).send({ err: e });
+  }
+});
+
+/* Get all posts created by user */
+router.get('/getPosts', async (req, res) => {
+  try {
+    if (!auth(req, res)) {
+      return;
+    }
+    const username = req.session.username;
+
+    const userPosts = await myDB.getUserPosts(username);
+
+    res.status(200).send({ cats: userPosts });
   } catch (e) {
     console.error('Error', e);
     res.status(400).send({ err: e });
