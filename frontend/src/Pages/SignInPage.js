@@ -44,7 +44,6 @@ export default function SignInPage() {
                 type="text"
                 className="form-control"
                 id="usernameInput"
-                name="username"
                 placeholder="Username"
                 onChange={(evt) => {
                   setUsername(evt.target.value);
@@ -57,7 +56,6 @@ export default function SignInPage() {
                 type="password"
                 className="form-control"
                 id="passwordInput"
-                name="password"
                 placeholder="Password"
                 onChange={(evt) => {
                   setPassword(evt.target.value);

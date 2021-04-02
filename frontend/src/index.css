@@ -47,7 +47,7 @@ a:hover {
   display: block;
   margin: auto;
   width: auto;
-  max-width: 70%;
+  max-width: 40%;
 }
 
 #landing-page-text {
@@ -83,9 +83,8 @@ a:hover {
 .sign-in-input,
 .register-input {
   width: 320px;
-  margin: auto;
   margin-top: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 26px;
 }
 
 #welcome-message {

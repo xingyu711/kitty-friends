@@ -42,7 +42,7 @@ async function registerUser(username, password, firstname, lastname) {
 
     // if username already found, return
     if (currentUser != null) {
-      return 'username alreay exists';
+      return 'Username alreay exists';
     }
 
     // else: save the user info into db
