@@ -78,7 +78,7 @@ router.post('/loginUser', async (req, res) => {
 
     // user does not exist
     if (hash == null) {
-      res.status(401).send({ login: 'not found' });
+      res.status(401).send({ login: 'User not found' });
     } else {
       const match = await bcrypt.compare(password, hash);
       if (match == true) {
@@ -86,7 +86,7 @@ router.post('/loginUser', async (req, res) => {
         req.session.username = username;
         res.sendStatus(200);
       } else {
-        res.status(401).send({ login: 'wrong password' });
+        res.status(401).send({ login: 'Wrong password' });
       }
     }
   } catch (e) {
@@ -154,7 +154,7 @@ router.get('/getCollections', async (req, res) => {
     const username = req.session.username;
 
     const savedCats = await myDB.getUserCollections(username);
-    res.status(200).send({ cats: savedCats });
+    res.status(200).send({ collections: savedCats });
   } catch (e) {
     console.error('Error', e);
     res.status(400).send({ err: e });
@@ -211,7 +211,7 @@ router.get('/getPosts', async (req, res) => {
 
     const userPosts = await myDB.getUserPosts(username);
 
-    res.status(200).send({ cats: userPosts });
+    res.status(200).send({ posts: userPosts });
   } catch (e) {
     console.error('Error', e);
     res.status(400).send({ err: e });

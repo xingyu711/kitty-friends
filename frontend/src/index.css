@@ -1,0 +1,107 @@
+body {
+  font: 14px;
+  color: #575757;
+}
+
+nav {
+  font-size: 17px;
+}
+
+/* Customize a tag */
+a {
+  color: #cf929e;
+}
+
+a:hover {
+  color: #aa7a83;
+}
+
+/* Customize button */
+.btn-primary {
+  background-color: #ddb3bb;
+  border: #ddb3bb;
+  color: white;
+}
+
+.btn-primary:active,
+.btn-primary:focus,
+.btn-primary:hover {
+  background-color: #d6a2ad;
+}
+
+/* Landing page */
+#landing-page-container {
+  height: calc(100vh - 56px);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+#landing-page-content {
+  width: auto;
+  max-width: 70%;
+}
+
+#kitty-friends-logo {
+  display: block;
+  margin: auto;
+  width: auto;
+  max-width: 70%;
+}
+
+#landing-page-text {
+  margin-top: 10%;
+  font-family: 'Amarante', cursive;
+  font-size: 20px;
+}
+
+/* Sign In and Register page */
+#sign-in-container,
+#register-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+#sign-in-content,
+#register-content {
+  text-align: center;
+}
+
+.footer-text {
+  margin-top: 10px;
+}
+
+#sign-in-button,
+#register-button {
+  width: 320px;
+  margin-top: 20px;
+}
+
+.sign-in-input,
+.register-input {
+  width: 320px;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+#welcome-message {
+  font-size: 22px;
+  margin-top: 30px;
+}
+
+#sign-in-logo {
+  width: 200px;
+}
+
+#register-logo {
+  width: 200px;
+  margin-bottom: 30px;
+}
+
+.error-msg {
+  color: red;
+}
