@@ -7,6 +7,14 @@ nav {
   font-size: 17px;
 }
 
+.particles {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
 /* Customize a tag */
 a {
   color: #cf929e;
@@ -36,6 +44,7 @@ a:hover {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  background-color: #f8eff0;
 }
 
 #landing-page-content {
