@@ -6,19 +6,27 @@ import Pagination from '../Components/Pagination.js';
 
 export default function Homepage() {
   const [cats, setCats] = useState([]);
-  const numPages = 5;
-  const currentPage = 4;
+  const [currentPage, setCurrentPage] = useState(0);
+  const [numPages, setNumPages] = useState(0);
 
   useEffect(() => {
     const getCats = async () => {
-      const resRaw = await fetch('/getCats');
+      const resRaw = await fetch(`/getCats?page=${currentPage}`);
       const res = await resRaw.json();
 
       setCats(res.cats);
+      setNumPages(res.numPages);
+
+      // scroll to the top of the page
+      window.scrollTo(0, 0);
     };
 
     getCats();
-  }, []);
+  }, [currentPage]);
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
 
   return (
     <div>
@@ -27,10 +35,16 @@ export default function Homepage() {
 
       <div className="d-flex flex-wrap justify-content-center">
         {cats.map((cat) => (
-          <Card cat={cat} />
+          <Card cat={cat} key={cat.cat_id} />
         ))}
       </div>
-      <Pagination numPages={numPages} currentPage={currentPage} />
+      {numPages > 1 && (
+        <Pagination
+          numPages={numPages}
+          currentPage={currentPage}
+          handlePageChange={handlePageChange}
+        />
+      )}
     </div>
   );
 }

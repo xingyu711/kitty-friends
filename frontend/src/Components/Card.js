@@ -3,7 +3,6 @@ import { SuitHeart, SuitHeartFill } from 'react-bootstrap-icons';
 
 export default function Card(props) {
   const cat = props.cat;
-  console.log(cat);
   const [isSaved, setIsSaved] = useState(false);
 
   function handleHeartClick() {
@@ -24,7 +23,7 @@ export default function Card(props) {
         {isSaved ? (
           <SuitHeartFill
             className="m-2 float-end heart heart-fill"
-            onClick={handleHeartClick()}
+            onClick={handleHeartClick}
           />
         ) : (
           <SuitHeart

@@ -16,13 +16,14 @@ function auth(req, res) {
 
 /* Get cats data */
 router.get('/getCats', async (req, res) => {
-  // TODO: pagination
   try {
-    const dataRaw = await myDB.getCats();
+    const page = req.query.page;
+
+    const dataRaw = await myDB.getCats(page);
     const data = [];
 
     // TODO: DO NOT PROCESS DATA HERE, process data in a seperate file
-    dataRaw.forEach((cat) => {
+    dataRaw.data.forEach((cat) => {
       data.push({
         cat_id: cat._id,
         age: cat.age,
@@ -32,7 +33,7 @@ router.get('/getCats', async (req, res) => {
         photo: eval(cat.med_photos)[0],
       });
     });
-    res.status(200).send({ cats: data });
+    res.status(200).send({ cats: data, numPages: dataRaw.numPages });
   } catch (e) {
     console.error('Error', e);
     res.status(400).send({ err: e });

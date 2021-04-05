@@ -3,8 +3,9 @@ const ObjectId = require('mongodb').ObjectId;
 const DB_NAME = 'kittyFriendsDB';
 const uri =
   'mmongodb+srv://test_user:password_test@cluster0.aijdj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+const RECORDS_PER_PAGE = 20;
 
-async function getCats() {
+async function getCats(currentPage = 0) {
   let client;
 
   try {
@@ -16,11 +17,21 @@ async function getCats() {
     const db = client.db(DB_NAME);
     const cats = db.collection('cats');
 
+    // count total number of docunments in this collections
+    const numDocuments = await cats.estimatedDocumentCount();
+    const numPages = Math.ceil(numDocuments / RECORDS_PER_PAGE);
+
+    // query options
+    const options = {
+      limit: RECORDS_PER_PAGE,
+      skip: RECORDS_PER_PAGE * currentPage,
+    };
+
     // read data
     const query = {};
-    const data = await cats.find(query).toArray();
+    const data = await cats.find(query, options).toArray();
 
-    return data;
+    return { data: data, numPages: numPages };
   } finally {
     client.close();
   }
