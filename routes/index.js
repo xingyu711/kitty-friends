@@ -18,10 +18,6 @@ function auth(req, res) {
 router.get('/getCats', async (req, res) => {
   // TODO: pagination
   try {
-    if (!auth(req, res)) {
-      return;
-    }
-
     const dataRaw = await myDB.getCats();
     const data = [];
 

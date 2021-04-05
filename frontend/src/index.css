@@ -3,16 +3,27 @@ body {
   color: #575757;
 }
 
-nav {
-  font-size: 17px;
-}
-
 .particles {
   position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
+}
+
+/* Navigation */
+nav {
+  font-size: 18px;
+}
+
+.navbar-light .navbar-nav .nav-link.active,
+.navbar-light .nav-item .nav-link:focus,
+.navbar-light .nav-item:hover .nav-link {
+  color: #cf929e;
+}
+
+.navbar-brand {
+  font-size: 22px;
 }
 
 /* Customize a tag */
@@ -22,6 +33,26 @@ a {
 
 a:hover {
   color: #aa7a83;
+}
+
+/* Customize pagination */
+.page-link {
+  color: #575757;
+}
+.page-link:hover,
+.page-link:focus {
+  color: #cf929e;
+}
+
+.page-item.active .page-link {
+  background-color: #cf929e;
+  border-color: #cf929e;
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Customize button */
@@ -112,4 +143,34 @@ a:hover {
 
 .error-msg {
   color: red;
+}
+
+/* Card */
+.card {
+  width: 20rem;
+}
+
+.cat-pic {
+  height: 20rem;
+  width: 100%;
+  object-fit: cover;
+}
+
+.card-text {
+  padding: 2px;
+}
+
+.heart {
+  font-size: 20pt;
+  cursor: pointer;
+  color: gray;
+}
+
+.heart:not(.heart-fill):hover,
+.heart-fill {
+  color: #cf929e;
+}
+
+.heart-fill:hover {
+  color: #b6807f;
 }
