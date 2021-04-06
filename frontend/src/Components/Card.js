@@ -4,6 +4,7 @@ import { SuitHeart, SuitHeartFill } from 'react-bootstrap-icons';
 export default function Card(props) {
   const cat = props.cat;
   const catId = props.id;
+  const handleUnsave = props.handleUnsave;
 
   const [isSaved, setIsSaved] = useState(props.isSaved);
 
@@ -19,7 +20,6 @@ export default function Card(props) {
     });
 
     if (resRaw.ok) {
-      console.log('successfully saved! ');
       setIsSaved(!isSaved);
     }
   }
@@ -36,8 +36,8 @@ export default function Card(props) {
     });
 
     if (resRaw.ok) {
-      console.log('successfully unsaved! ');
       setIsSaved(!isSaved);
+      handleUnsave(catId);
     }
   }
 

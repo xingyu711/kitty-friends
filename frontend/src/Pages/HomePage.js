@@ -54,25 +54,28 @@ export default function Homepage() {
   return (
     <div>
       <Navigation />
-      <SearchBar />
+      <div className="content-container">
+        <SearchBar />
 
-      <div className="d-flex flex-wrap justify-content-center">
-        {cats.map((cat) => (
-          <Card
-            cat={cat}
-            key={cat.cat_id}
-            id={cat.cat_id}
-            isSaved={savedCats.includes(cat.cat_id)}
+        <div className="d-flex flex-wrap justify-content-center">
+          {cats.map((cat) => (
+            <Card
+              cat={cat}
+              key={cat._id}
+              id={cat._id}
+              isSaved={savedCats.includes(cat._id)}
+            />
+          ))}
+        </div>
+
+        {numPages > 1 && (
+          <Pagination
+            numPages={numPages}
+            currentPage={currentPage}
+            handlePageChange={handlePageChange}
           />
-        ))}
+        )}
       </div>
-      {numPages > 1 && (
-        <Pagination
-          numPages={numPages}
-          currentPage={currentPage}
-          handlePageChange={handlePageChange}
-        />
-      )}
     </div>
   );
 }

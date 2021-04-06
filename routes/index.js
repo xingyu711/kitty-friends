@@ -22,22 +22,8 @@ router.get('/getCats', async (req, res) => {
     }
 
     const page = req.query.page;
-
-    const dataRaw = await myDB.getCats(page);
-    const data = [];
-
-    // TODO: DO NOT PROCESS DATA HERE, process data in a seperate file
-    dataRaw.data.forEach((cat) => {
-      data.push({
-        cat_id: cat._id,
-        age: cat.age,
-        gender: cat.gender,
-        size: cat.size,
-        breed: cat.breed,
-        photo: eval(cat.med_photos)[0],
-      });
-    });
-    res.status(200).send({ cats: data, numPages: dataRaw.numPages });
+    const result = await myDB.getCats(page);
+    res.status(200).send({ cats: result.data, numPages: result.numPages });
   } catch (e) {
     console.error('Error', e);
     res.status(400).send({ err: e });
@@ -182,6 +168,10 @@ router.get('/getSavedIds', async (req, res) => {
 
 router.post('/postCat', async (req, res) => {
   try {
+    if (!auth(req, res)) {
+      return;
+    }
+
     // get username from session and add username to data object
     const username = req.session.username;
 
@@ -202,6 +192,10 @@ router.post('/postCat', async (req, res) => {
 /* delete a post in user's home page */
 router.post('/deletePost', async (req, res) => {
   try {
+    if (!auth(req, res)) {
+      return;
+    }
+
     const username = req.session.username;
     const catId = req.body.cat_id;
 
@@ -216,6 +210,10 @@ router.post('/deletePost', async (req, res) => {
 /* Get all posts created by user */
 router.get('/getPosts', async (req, res) => {
   try {
+    if (!auth(req, res)) {
+      return;
+    }
+
     const username = req.session.username;
 
     const userPosts = await myDB.getUserPosts(username);
@@ -229,6 +227,10 @@ router.get('/getPosts', async (req, res) => {
 
 router.get('/getPersonName', async (req, res) => {
   try {
+    if (!auth(req, res)) {
+      return;
+    }
+
     const username = req.session.username;
 
     //ask db to find the user's display name

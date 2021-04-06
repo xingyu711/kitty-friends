@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function SearchBar() {
   return (
-    <div className="container m-auto mt-3">
+    <div className="search-container">
       <div className="row justify-content-center">
         <div className="mb-3 col-md-4 col-lg-3">
           <select className="form-select" name="breed">

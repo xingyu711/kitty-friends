@@ -1,5 +1,4 @@
 body {
-  font: 14px;
   color: #575757;
 }
 
@@ -11,9 +10,26 @@ body {
   left: 0;
 }
 
+.content-container {
+  margin-top: 100px;
+}
+
+/* search bar */
+.search-container {
+  margin-left: 8%;
+  margin-right: 8%;
+}
+
 /* Navigation */
 nav {
   font-size: 18px;
+}
+
+.navbar-container {
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
 }
 
 .navbar-light .navbar-nav .nav-link.active,
@@ -57,15 +73,15 @@ a:hover {
 
 /* Customize button */
 .btn-primary {
-  background-color: #ddb3bb;
-  border: #ddb3bb;
+  background-color: #cf929e;
+  border: #cf929e;
   color: white;
 }
 
 .btn-primary:active,
 .btn-primary:focus,
 .btn-primary:hover {
-  background-color: #d6a2ad;
+  background-color: #bf8e97;
 }
 
 /* Landing page */
