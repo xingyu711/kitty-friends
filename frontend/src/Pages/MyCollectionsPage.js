@@ -3,16 +3,20 @@ import { useHistory } from 'react-router-dom';
 import Card from '../Components/Card.js';
 import Navigation from '../Components/Navigation.js';
 import Pagination from '../Components/Pagination.js';
+import EmptyPagePlaceholder from '../Components/EmptyPagePlaceholder.js';
 
 export default function MyCollectionsPage() {
   const [savedCats, setSavedCats] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [numPages, setNumPages] = useState(0);
+  const [showPlaceholder, setShowPlaceholder] = useState(false);
 
   const history = useHistory();
 
   useEffect(() => {
     const getSavedCats = async () => {
+      setShowPlaceholder(false);
+
       const resRaw = await fetch(`/getCollections?page=${currentPage}`);
       const res = await resRaw.json();
 
@@ -22,6 +26,11 @@ export default function MyCollectionsPage() {
 
       setSavedCats(res.cats);
       setNumPages(res.numPages);
+
+      if (res.cats.length === 0) {
+        console.log('show EmptyPagePlaceholder!');
+        setShowPlaceholder(true);
+      }
 
       // automatically scroll to the top of the page
       window.scrollTo(0, 0);
@@ -41,8 +50,13 @@ export default function MyCollectionsPage() {
 
     // if we remove the last one on the current page, direct to the previous page
     if (newCats.length === 0) {
-      setCurrentPage(currentPage - 1);
-      setNumPages(0);
+      if (currentPage === 0) {
+        setNumPages(0);
+        setShowPlaceholder(true);
+      } else {
+        setCurrentPage(currentPage - 1);
+        setNumPages(0);
+      }
     }
   }
 
@@ -54,6 +68,13 @@ export default function MyCollectionsPage() {
     <div>
       <Navigation />
       <div className="content-container">
+        {showPlaceholder && (
+          <EmptyPagePlaceholder
+            msg="You haven't saved any furry friends yet."
+            linkTo="/home"
+            linkToMsg="Explore"
+          />
+        )}
         <div className="d-flex flex-wrap justify-content-center">
           {savedCats.map((cat) => (
             <Card
