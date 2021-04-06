@@ -3,11 +3,42 @@ import { SuitHeart, SuitHeartFill } from 'react-bootstrap-icons';
 
 export default function Card(props) {
   const cat = props.cat;
-  const [isSaved, setIsSaved] = useState(false);
+  const catId = props.id;
 
-  function handleHeartClick() {
-    console.log('handleHeartClick');
-    setIsSaved(!isSaved);
+  const [isSaved, setIsSaved] = useState(props.isSaved);
+
+  async function saveCat() {
+    const resRaw = await fetch('/saveCat', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        cat_id: catId,
+      }),
+    });
+
+    if (resRaw.ok) {
+      console.log('successfully saved! ');
+      setIsSaved(!isSaved);
+    }
+  }
+
+  async function unSaveCat() {
+    const resRaw = await fetch('/unsaveCat', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        cat_id: catId,
+      }),
+    });
+
+    if (resRaw.ok) {
+      console.log('successfully unsaved! ');
+      setIsSaved(!isSaved);
+    }
   }
 
   return (
@@ -22,14 +53,11 @@ export default function Card(props) {
         <div className="card-text">Phone: 666-777-8888</div>
         {isSaved ? (
           <SuitHeartFill
-            className="m-2 float-end heart heart-fill"
-            onClick={handleHeartClick}
+            className="me-1 float-end heart heart-fill"
+            onClick={unSaveCat}
           />
         ) : (
-          <SuitHeart
-            className="m-2 float-end heart"
-            onClick={handleHeartClick}
-          />
+          <SuitHeart className="me-1 float-end heart" onClick={saveCat} />
         )}
       </div>
     </div>

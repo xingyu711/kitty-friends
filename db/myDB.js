@@ -2,7 +2,7 @@ const { MongoClient } = require('mongodb');
 const ObjectId = require('mongodb').ObjectId;
 const DB_NAME = 'kittyFriendsDB';
 const uri =
-  'mmongodb+srv://test_user:password_test@cluster0.aijdj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+  'mmongodb+srv://test_user:password_test@cluster0.aijdj.mongodb.net/kittyFriendsDB?retryWrites=true&w=majority';
 const RECORDS_PER_PAGE = 20;
 
 async function getCats(currentPage = 0) {
@@ -197,6 +197,31 @@ async function getUserCollections(username) {
   }
 }
 
+async function getSavedCatIds(username) {
+  let client;
+
+  try {
+    client = new MongoClient(uri, { useUnifiedTopology: true });
+    await client.connect();
+
+    const db = client.db(DB_NAME);
+    const users = db.collection('users');
+
+    if (!username) {
+      return [];
+    }
+
+    // filter using username and get saved cars ids
+    const filter = { username: username };
+    const document = await users.findOne(filter);
+    const savedCatIds = document.saved_cats;
+
+    return savedCatIds;
+  } finally {
+    client.close();
+  }
+}
+
 async function addCat(catData) {
   let client;
 
@@ -285,6 +310,7 @@ module.exports = {
   addToCollections,
   deleteFromCollections,
   getUserCollections,
+  getSavedCatIds,
   addCat,
   getUserPosts,
   deleteFromPosts,

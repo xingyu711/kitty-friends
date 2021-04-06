@@ -17,6 +17,10 @@ function auth(req, res) {
 /* Get cats data */
 router.get('/getCats', async (req, res) => {
   try {
+    if (!auth(req, res)) {
+      return;
+    }
+
     const page = req.query.page;
 
     const dataRaw = await myDB.getCats(page);
@@ -43,6 +47,10 @@ router.get('/getCats', async (req, res) => {
 /* Register a user */
 router.post('/registerUser', async (req, res) => {
   try {
+    if (!auth(req, res)) {
+      return;
+    }
+
     const username = req.body.username;
     const password = req.body.password;
     const firstname = req.body.firstname;
@@ -94,9 +102,6 @@ router.post('/loginUser', async (req, res) => {
 
 router.get('/logoutUser', async (req, res) => {
   try {
-    if (!auth(req, res)) {
-      return;
-    }
     delete req.session.username;
     res.sendStatus(200);
   } catch (e) {
@@ -158,12 +163,25 @@ router.get('/getCollections', async (req, res) => {
   }
 });
 
-router.post('/postCat', async (req, res) => {
+/* Get all ids of user saved cats */
+router.get('/getSavedIds', async (req, res) => {
   try {
     if (!auth(req, res)) {
       return;
     }
 
+    const username = req.session.username;
+
+    const savedIds = await myDB.getSavedCatIds(username);
+    res.status(200).send({ savedIds: savedIds });
+  } catch (e) {
+    console.error('Error', e);
+    res.status(400).send({ err: e });
+  }
+});
+
+router.post('/postCat', async (req, res) => {
+  try {
     // get username from session and add username to data object
     const username = req.session.username;
 
@@ -184,9 +202,6 @@ router.post('/postCat', async (req, res) => {
 /* delete a post in user's home page */
 router.post('/deletePost', async (req, res) => {
   try {
-    if (!auth(req, res)) {
-      return;
-    }
     const username = req.session.username;
     const catId = req.body.cat_id;
 
@@ -201,9 +216,6 @@ router.post('/deletePost', async (req, res) => {
 /* Get all posts created by user */
 router.get('/getPosts', async (req, res) => {
   try {
-    if (!auth(req, res)) {
-      return;
-    }
     const username = req.session.username;
 
     const userPosts = await myDB.getUserPosts(username);
