@@ -4,7 +4,7 @@ var router = express.Router();
 const myDB = require('../db/myDB.js');
 
 const bcrypt = require('bcrypt');
-const saltRounds = 10;
+const saltRounds = 20;
 
 function auth(req, res) {
   if (!req.session.username) {
@@ -140,9 +140,10 @@ router.get('/getCollections', async (req, res) => {
     }
 
     const username = req.session.username;
+    const page = req.query.page;
 
-    const savedCats = await myDB.getUserCollections(username);
-    res.status(200).send({ collections: savedCats });
+    const result = await myDB.getUserCollections(username, page);
+    res.status(200).send({ cats: result.data, numPages: result.numPages });
   } catch (e) {
     console.error('Error', e);
     res.status(400).send({ err: e });

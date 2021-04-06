@@ -21,7 +21,7 @@ async function getCats(currentPage = 0) {
     const numDocuments = await cats.estimatedDocumentCount();
     const numPages = Math.ceil(numDocuments / RECORDS_PER_PAGE);
 
-    // query options
+    // query options - pagination
     const options = {
       limit: RECORDS_PER_PAGE,
       skip: RECORDS_PER_PAGE * currentPage,
@@ -160,7 +160,7 @@ async function deleteFromCollections(username, catId) {
 }
 
 // Given a username, find all cats in his or her collections
-async function getUserCollections(username) {
+async function getUserCollections(username, currentPage) {
   let client;
 
   try {
@@ -180,18 +180,30 @@ async function getUserCollections(username) {
     const document = await users.findOne(filter);
     const savedCatIds = document.saved_cats;
 
+    // calculate number of pages using the total number of saved cats
+    const numPages = Math.ceil(savedCatIds.length / RECORDS_PER_PAGE);
+
+    // query options - pagination
+    const options = {
+      limit: RECORDS_PER_PAGE,
+      skip: RECORDS_PER_PAGE * currentPage,
+    };
+
     if (savedCatIds) {
       // find all documents in cars having these car ids
       const savedCats = await cats
-        .find({
-          _id: { $in: savedCatIds.map((id) => new ObjectId(id)) },
-        })
+        .find(
+          {
+            _id: { $in: savedCatIds.map((id) => new ObjectId(id)) },
+          },
+          options
+        )
         .toArray();
-      return savedCats;
+      return { data: savedCats, numPages: numPages };
     }
 
     // if the user haven't yet save any cars
-    return [];
+    return {};
   } finally {
     client.close();
   }

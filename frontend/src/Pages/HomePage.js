@@ -47,9 +47,9 @@ export default function Homepage() {
     getCats();
   }, [currentPage]);
 
-  const handlePageChange = (page) => {
+  function handlePageChange(page) {
     setCurrentPage(page);
-  };
+  }
 
   return (
     <div>

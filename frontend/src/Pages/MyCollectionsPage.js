@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import Card from '../Components/Card.js';
 import Navigation from '../Components/Navigation.js';
+import Pagination from '../Components/Pagination.js';
 
 export default function MyCollectionsPage() {
   const [savedCats, setSavedCats] = useState([]);
@@ -12,21 +13,22 @@ export default function MyCollectionsPage() {
 
   useEffect(() => {
     const getSavedCats = async () => {
-      const resRaw = await fetch(`/getCollections`);
+      const resRaw = await fetch(`/getCollections?page=${currentPage}`);
       const res = await resRaw.json();
 
       if (resRaw.status === 401) {
         history.push('/');
       }
 
-      setSavedCats(res.collections);
+      setSavedCats(res.cats);
+      setNumPages(res.numPages);
 
       // automatically scroll to the top of the page
       window.scrollTo(0, 0);
     };
 
     getSavedCats();
-  }, []);
+  }, [currentPage]);
 
   function handleUnsave(catId) {
     const newCats = [];
@@ -36,6 +38,16 @@ export default function MyCollectionsPage() {
       }
     });
     setSavedCats(newCats);
+
+    // if we remove the last one on the current page, direct to the previous page
+    if (newCats.length === 0) {
+      setCurrentPage(currentPage - 1);
+      setNumPages(0);
+    }
+  }
+
+  function handlePageChange(page) {
+    setCurrentPage(page);
   }
 
   return (
@@ -53,6 +65,14 @@ export default function MyCollectionsPage() {
             />
           ))}
         </div>
+
+        {numPages > 1 && (
+          <Pagination
+            numPages={numPages}
+            currentPage={currentPage}
+            handlePageChange={handlePageChange}
+          />
+        )}
       </div>
     </div>
   );
