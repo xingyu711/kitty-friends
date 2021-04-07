@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { SuitHeart, SuitHeartFill } from 'react-bootstrap-icons';
+import { SuitHeart, SuitHeartFill, Trash } from 'react-bootstrap-icons';
 
 export default function Card(props) {
   const cat = props.cat;
   const catId = props.id;
   const handleUnsave = props.handleUnsave;
+  const enableDelete = props.enableDelete;
+  const fromPage = props.fromPage;
 
   const [isSaved, setIsSaved] = useState(props.isSaved);
 
@@ -37,7 +39,10 @@ export default function Card(props) {
 
     if (resRaw.ok) {
       setIsSaved(!isSaved);
-      handleUnsave(catId);
+
+      if (fromPage === 'MyCollectionsPage') {
+        handleUnsave(catId);
+      }
     }
   }
 
@@ -51,13 +56,21 @@ export default function Card(props) {
         <div className="card-text">Breed: {cat.breed}</div>
         <div className="card-text">default@gmail.com</div>
         <div className="card-text">Phone: 666-777-8888</div>
-        {isSaved ? (
+        {fromPage === 'MyPostsPage' && (
+          <Trash className="me-1 float-end action-icon trash" />
+        )}
+        {fromPage !== 'MyPostsPage' && isSaved && (
           <SuitHeartFill
-            className="me-1 float-end heart heart-fill"
+            className="me-1 float-end action-icon heart-fill"
             onClick={unSaveCat}
           />
-        ) : (
-          <SuitHeart className="me-1 float-end heart" onClick={saveCat} />
+        )}
+
+        {fromPage !== 'MyPostsPage' && !isSaved && (
+          <SuitHeart
+            className="me-1 float-end action-icon heart"
+            onClick={saveCat}
+          />
         )}
       </div>
     </div>

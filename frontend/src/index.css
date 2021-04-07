@@ -203,13 +203,14 @@ a:hover {
   padding: 2px;
 }
 
-.heart {
+.action-icon {
   font-size: 20pt;
   cursor: pointer;
   color: gray;
 }
 
-.heart:not(.heart-fill):hover,
+.heart:hover,
+.trash:hover,
 .heart-fill {
   color: #cf929e;
 }

@@ -28,7 +28,6 @@ export default function MyCollectionsPage() {
       setNumPages(res.numPages);
 
       if (res.cats.length === 0) {
-        console.log('show EmptyPagePlaceholder!');
         setShowPlaceholder(true);
       }
 
@@ -83,6 +82,7 @@ export default function MyCollectionsPage() {
               id={cat._id}
               isSaved={true}
               handleUnsave={handleUnsave}
+              fromPage={'MyCollectionsPage'}
             />
           ))}
         </div>

@@ -216,10 +216,10 @@ router.get('/getPosts', async (req, res) => {
     }
 
     const username = req.session.username;
+    const page = req.query.page;
 
-    const userPosts = await myDB.getUserPosts(username);
-
-    res.status(200).send({ posts: userPosts });
+    const result = await myDB.getUserPosts(username, page);
+    res.status(200).send({ cats: result.data, numPages: result.numPages });
   } catch (e) {
     console.error('Error', e);
     res.status(400).send({ err: e });

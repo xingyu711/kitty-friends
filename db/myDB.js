@@ -172,7 +172,7 @@ async function getUserCollections(username, currentPage) {
     const cats = db.collection('cats');
 
     if (!username) {
-      return [];
+      return {};
     }
 
     // filter using username and get saved cars ids
@@ -268,7 +268,7 @@ async function deleteFromPosts(username, catId) {
   }
 }
 
-async function getUserPosts(username) {
+async function getUserPosts(username, currentPage) {
   let client;
 
   try {
@@ -278,14 +278,24 @@ async function getUserPosts(username) {
     const db = client.db(DB_NAME);
     const cats = db.collection('cats');
 
+    // query options - pagination
+    const options = {
+      limit: RECORDS_PER_PAGE,
+      skip: RECORDS_PER_PAGE * currentPage,
+    };
+
     if (!username) {
-      return [];
+      return {};
     }
     // query using username and get all cars posted by this user
     const query = { username: username };
-    const userPosts = await cats.find(query).toArray();
+    const userPosts = await cats.find(query, options).toArray();
 
-    return userPosts;
+    // calculate number of pages
+    const totalPosts = await cats.find(query).count();
+    const numPages = Math.ceil(totalPosts / RECORDS_PER_PAGE);
+
+    return { data: userPosts, numPages: numPages };
   } finally {
     client.close();
   }
