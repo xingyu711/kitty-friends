@@ -49,6 +49,7 @@ export default function MyCollectionsPage() {
 
     // if we remove the last one on the current page, direct to the previous page
     if (newCats.length === 0) {
+      // current page is the first page = we remove the last item, show the empty page placeholder
       if (currentPage === 0) {
         setNumPages(0);
         setShowPlaceholder(true);
@@ -82,7 +83,7 @@ export default function MyCollectionsPage() {
               id={cat._id}
               isSaved={true}
               handleUnsave={handleUnsave}
-              fromPage={'MyCollectionsPage'}
+              parentPage={'MyCollectionsPage'}
             />
           ))}
         </div>

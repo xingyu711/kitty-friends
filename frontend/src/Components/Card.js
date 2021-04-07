@@ -5,8 +5,8 @@ export default function Card(props) {
   const cat = props.cat;
   const catId = props.id;
   const handleUnsave = props.handleUnsave;
-  const enableDelete = props.enableDelete;
-  const fromPage = props.fromPage;
+  const handleDelete = props.handleDelete;
+  const parentPage = props.parentPage;
 
   const [isSaved, setIsSaved] = useState(props.isSaved);
 
@@ -40,8 +40,26 @@ export default function Card(props) {
     if (resRaw.ok) {
       setIsSaved(!isSaved);
 
-      if (fromPage === 'MyCollectionsPage') {
+      if (parentPage === 'MyCollectionsPage') {
         handleUnsave(catId);
+      }
+    }
+  }
+
+  async function deleteCat() {
+    const resRaw = await fetch('/deletePost', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        cat_id: catId,
+      }),
+    });
+
+    if (resRaw.ok) {
+      if (parentPage === 'MyPostsPage') {
+        handleDelete(catId);
       }
     }
   }
@@ -56,17 +74,20 @@ export default function Card(props) {
         <div className="card-text">Breed: {cat.breed}</div>
         <div className="card-text">default@gmail.com</div>
         <div className="card-text">Phone: 666-777-8888</div>
-        {fromPage === 'MyPostsPage' && (
-          <Trash className="me-1 float-end action-icon trash" />
+        {parentPage === 'MyPostsPage' && (
+          <Trash
+            className="me-1 float-end action-icon trash"
+            onClick={deleteCat}
+          />
         )}
-        {fromPage !== 'MyPostsPage' && isSaved && (
+        {parentPage !== 'MyPostsPage' && isSaved && (
           <SuitHeartFill
             className="me-1 float-end action-icon heart-fill"
             onClick={unSaveCat}
           />
         )}
 
-        {fromPage !== 'MyPostsPage' && !isSaved && (
+        {parentPage !== 'MyPostsPage' && !isSaved && (
           <SuitHeart
             className="me-1 float-end action-icon heart"
             onClick={saveCat}

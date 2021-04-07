@@ -42,15 +42,38 @@ export default function MyPostsPage() {
     setCurrentPage(page);
   }
 
+  function handleDelete(catId) {
+    console.log('calling handleDelete');
+    const newCats = [];
+    postedCats.forEach((cat) => {
+      if (cat._id !== catId) {
+        newCats.push(cat);
+      }
+    });
+    setPostedCats(newCats);
+
+    // if we remove the last one on the current page, direct to the previous page
+    if (newCats.length === 0) {
+      // current page is the first page = we remove the last item, show the empty page placeholder
+      if (currentPage === 0) {
+        setNumPages(0);
+        setShowPlaceholder(true);
+      } else {
+        setCurrentPage(currentPage - 1);
+        setNumPages(0);
+      }
+    }
+  }
+
   return (
     <div>
       <Navigation />
       <div className="content-container">
         {showPlaceholder && (
           <EmptyPagePlaceholder
-            msg="You haven't saved any furry friends yet."
-            linkTo="/home"
-            linkToMsg="Explore"
+            msg="You haven't posted any furry friends yet."
+            linkTo="/postCat"
+            linkToMsg="Post A Cat"
           />
         )}
         <div className="d-flex flex-wrap justify-content-center">
@@ -59,7 +82,8 @@ export default function MyPostsPage() {
               cat={cat}
               key={cat._id}
               id={cat._id}
-              fromPage={'MyPostsPage'}
+              parentPage={'MyPostsPage'}
+              handleDelete={handleDelete}
             />
           ))}
         </div>

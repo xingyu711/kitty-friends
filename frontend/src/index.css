@@ -109,7 +109,7 @@ a:hover {
 .placeholder-link {
   display: block;
   margin: auto;
-  width: min-content;
+  width: max-content;
 }
 /* Landing page */
 #landing-page-container {

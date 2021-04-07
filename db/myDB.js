@@ -133,6 +133,8 @@ async function deleteFromCollections(username, catId) {
     client = new MongoClient(uri, { useUnifiedTopology: true });
     await client.connect();
 
+    console.log('calling remove from collection');
+
     const db = client.db(DB_NAME);
     const users = db.collection('users');
 
@@ -260,9 +262,12 @@ async function deleteFromPosts(username, catId) {
     const db = client.db(DB_NAME);
     const cats = db.collection('cats');
 
-    // delete by car id
+    // delete by cat id
     const query = { _id: new ObjectId(catId) };
     await cats.deleteOne(query);
+
+    // also delete this cat id from user's saved_cats
+    await deleteFromCollections(username, catId);
   } finally {
     client.close();
   }
