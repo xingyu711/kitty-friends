@@ -11,6 +11,13 @@ export default function Homepage() {
   const [numPages, setNumPages] = useState(0);
   const [savedCats, setSavedCats] = useState([]);
 
+  // states for search cats
+  const [queryBreed, setQueryBreed] = useState('');
+  const [queryAge, setQueryAge] = useState('');
+  const [querySize, setQuerySize] = useState('');
+  const [queryGender, setQueryGender] = useState('');
+  const [reload, setReload] = useState(0);
+
   const history = useHistory();
 
   useEffect(() => {
@@ -30,7 +37,9 @@ export default function Homepage() {
 
   useEffect(() => {
     const getCats = async () => {
-      const resRaw = await fetch(`/getCats?page=${currentPage}`);
+      const resRaw = await fetch(
+        `/getCats?page=${currentPage}&breed=${queryBreed}&age=${queryAge}&size=${querySize}&gender=${queryGender}`
+      );
       const res = await resRaw.json();
 
       if (resRaw.status === 401) {
@@ -45,17 +54,43 @@ export default function Homepage() {
     };
 
     getCats();
-  }, [currentPage]);
+  }, [currentPage, reload]);
 
   function handlePageChange(page) {
     setCurrentPage(page);
+  }
+
+  function handleQueryBreed(breed) {
+    setQueryBreed(breed);
+  }
+
+  function handleQueryAge(age) {
+    setQueryAge(age);
+  }
+
+  function handleQuerySize(size) {
+    setQuerySize(size);
+  }
+
+  function handleQueryGender(gender) {
+    setQueryGender(gender);
+  }
+
+  function handleSearchButtonClick() {
+    setReload(reload + 1);
   }
 
   return (
     <div>
       <Navigation />
       <div className="content-container">
-        <SearchBar />
+        <SearchBar
+          handleQueryBreed={handleQueryBreed}
+          handleQueryAge={handleQueryAge}
+          handleQuerySize={handleQuerySize}
+          handleQueryGender={handleQueryGender}
+          handleSearchButtonClick={handleSearchButtonClick}
+        />
 
         <div className="d-flex flex-wrap justify-content-center">
           {cats.map((cat) => (

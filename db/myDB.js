@@ -5,7 +5,7 @@ const uri =
   'mmongodb+srv://test_user:password_test@cluster0.aijdj.mongodb.net/kittyFriendsDB?retryWrites=true&w=majority';
 const RECORDS_PER_PAGE = 20;
 
-async function getCats(currentPage = 0) {
+async function getCats(currentPage = 0, breed, age, size, gender) {
   let client;
 
   try {
@@ -17,9 +17,24 @@ async function getCats(currentPage = 0) {
     const db = client.db(DB_NAME);
     const cats = db.collection('cats');
 
-    // count total number of docunments in this collections
-    const numDocuments = await cats.estimatedDocumentCount();
-    const numPages = Math.ceil(numDocuments / RECORDS_PER_PAGE);
+    // build the query string based on input parameters
+    let query = {};
+    if (breed) {
+      query.breed = breed;
+    }
+    if (age) {
+      query.age = age;
+    }
+    if (size) {
+      query.size = size;
+    }
+    if (gender) {
+      query.gender = gender;
+    }
+
+    // calculate total number of pages
+    const numCats = await cats.find(query).count();
+    const numPages = Math.ceil(numCats / RECORDS_PER_PAGE);
 
     // query options - pagination
     const options = {
@@ -28,7 +43,6 @@ async function getCats(currentPage = 0) {
     };
 
     // read data
-    const query = {};
     const data = await cats.find(query, options).toArray();
 
     return { data: data, numPages: numPages };

@@ -20,9 +20,16 @@ router.get('/getCats', async (req, res) => {
     if (!auth(req, res)) {
       return;
     }
-
+    // get pagination info
     const page = req.query.page;
-    const result = await myDB.getCats(page);
+
+    // get search queries
+    const breed = req.query.breed;
+    const age = req.query.age;
+    const size = req.query.size;
+    const gender = req.query.gender;
+
+    const result = await myDB.getCats(page, breed, age, size, gender);
     res.status(200).send({ cats: result.data, numPages: result.numPages });
   } catch (e) {
     console.error('Error', e);
