@@ -72,8 +72,12 @@ export default function Card(props) {
         <div className="card-text">Gender: {cat.gender}</div>
         <div className="card-text">Size: {cat.size}</div>
         <div className="card-text">Breed: {cat.breed}</div>
-        <div className="card-text">default@gmail.com</div>
-        <div className="card-text">Phone: 666-777-8888</div>
+        <div className="card-text">
+          Email: {cat.email ? cat.email : 'default@gmail.com'}
+        </div>
+        <div className="card-text">
+          Phone: {cat.phone ? cat.phone : '666-777-8888'}
+        </div>
         {parentPage === 'MyPostsPage' && (
           <Trash
             className="me-1 float-end action-icon trash"
