@@ -1,0 +1,47 @@
+export const catBreeds = [
+  'Persian',
+  'American Shorthair',
+  'Siamese',
+  'Domestic Long Hair',
+  'Domestic Short Hair',
+  'Domestic Medium Hair',
+  'Snowshoe',
+  'Dilute Tortoiseshell',
+  'Dilute Calico',
+  'Russian Blue',
+  'Maine Coon',
+  'Calico',
+  'Tabby',
+  'Tiger',
+  'Bengal',
+  'Turkish Angora',
+  'Turkish Van',
+  'Tuxedo',
+  'Torbie',
+  'Bombay',
+  'Devon Rex',
+  'Tortoiseshell',
+  'Ragdoll',
+  'Abyssinian',
+  'Havana',
+  'Exotic Shorthair',
+  'Egyptian Mau',
+  'Burmese',
+  'Birman',
+  'Tonkinese',
+  'Balinese',
+  'Chausie',
+  'Himalayan',
+  'American Bobtail',
+  'Manx',
+  'Ragamuffin',
+  'Norwegian Forest Cat',
+  'Scottish Fold',
+  'Siberian',
+];
+
+export const catAges = ['Baby', 'Young', 'Adult', 'Senior'];
+
+export const catSizes = ['Small', 'Median', 'Large', 'Extra Large'];
+
+export const catGenders = ['Female', 'Male'];

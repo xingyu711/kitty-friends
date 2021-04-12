@@ -1,52 +1,7 @@
 import React from 'react';
-
-const catBreeds = [
-  'Persian',
-  'American Shorthair',
-  'Siamese',
-  'Domestic Long Hair',
-  'Domestic Short Hair',
-  'Domestic Medium Hair',
-  'Snowshoe',
-  'Dilute Tortoiseshell',
-  'Dilute Calico',
-  'Russian Blue',
-  'Maine Coon',
-  'Calico',
-  'Tabby',
-  'Tiger',
-  'Bengal',
-  'Turkish Angora',
-  'Turkish Van',
-  'Tuxedo',
-  'Torbie',
-  'Bombay',
-  'Devon Rex',
-  'Tortoiseshell',
-  'Ragdoll',
-  'Abyssinian',
-  'Havana',
-  'Exotic Shorthair',
-  'Egyptian Mau',
-  'Burmese',
-  'Birman',
-  'Tonkinese',
-  'Balinese',
-  'Chausie',
-  'Himalayan',
-  'American Bobtail',
-  'Manx',
-  'Ragamuffin',
-  'Norwegian Forest Cat',
-  'Scottish Fold',
-  'Siberian',
-];
-
-const catAges = ['Baby', 'Young', 'Adult', 'Senior'];
-
-const catSizes = ['Small', 'Median', 'Large', 'Extra Large'];
-
-const catGenders = ['Female', 'Male'];
+import { catBreeds, catAges, catSizes, catGenders } from '../constants.js';
+import PropTypes from 'prop-types';
+import './SearchBar.css';
 
 export default function SearchBar(props) {
   const handleQueryBreed = props.handleQueryBreed;
@@ -68,7 +23,9 @@ export default function SearchBar(props) {
           >
             <option value="">Breed</option>
             {catBreeds.map((breed) => (
-              <option value={breed}>{breed}</option>
+              <option key={breed} value={breed}>
+                {breed}
+              </option>
             ))}
           </select>
         </div>
@@ -83,7 +40,9 @@ export default function SearchBar(props) {
           >
             <option value="">Age</option>
             {catAges.map((age) => (
-              <option value={age}>{age}</option>
+              <option key={age} value={age}>
+                {age}
+              </option>
             ))}
           </select>
         </div>
@@ -98,7 +57,9 @@ export default function SearchBar(props) {
           >
             <option value="">Size</option>
             {catSizes.map((size) => (
-              <option value={size}>{size}</option>
+              <option key={size} value={size}>
+                {size}
+              </option>
             ))}
           </select>
         </div>
@@ -113,7 +74,9 @@ export default function SearchBar(props) {
           >
             <option value="">Gender</option>
             {catGenders.map((gender) => (
-              <option value={gender}>{gender}</option>
+              <option key={gender} value={gender}>
+                {gender}
+              </option>
             ))}
           </select>
         </div>
@@ -126,3 +89,11 @@ export default function SearchBar(props) {
     </div>
   );
 }
+
+SearchBar.propTypes = {
+  handleQueryBreed: PropTypes.func,
+  handleQueryAge: PropTypes.func,
+  handleQuerySize: PropTypes.func,
+  handleQueryGender: PropTypes.func,
+  handleSearchButtonClick: PropTypes.func,
+};

@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../Images/favicon.svg';
+import PropTypes from 'prop-types';
+import './EmptyPagePlaceholder.css';
 
 export default function EmptyPagePlaceholder({ msg, linkTo, linkToMsg }) {
   return (
@@ -13,3 +15,9 @@ export default function EmptyPagePlaceholder({ msg, linkTo, linkToMsg }) {
     </div>
   );
 }
+
+EmptyPagePlaceholder.propTypes = {
+  msg: PropTypes.string,
+  linkTo: PropTypes.string,
+  linkToMsg: PropTypes.string,
+};

@@ -33,7 +33,7 @@ export default function Homepage() {
     };
 
     getSavedCats();
-  }, [currentPage]);
+  }, [currentPage, history]);
 
   useEffect(() => {
     const getCats = async () => {
@@ -54,7 +54,7 @@ export default function Homepage() {
     };
 
     getCats();
-  }, [currentPage, reload]);
+  }, [currentPage, reload, history]);
 
   function handlePageChange(page) {
     setCurrentPage(page);

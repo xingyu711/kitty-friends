@@ -1,0 +1,32 @@
+/* Customize pagination */
+.page-link {
+  color: #575757;
+}
+.page-link:hover,
+.page-link:focus {
+  color: #cf929e;
+}
+
+.page-item.active .page-link {
+  background-color: #cf929e;
+  border-color: #cf929e;
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Customize button */
+.btn-primary {
+  background-color: #cf929e;
+  border: #cf929e;
+  color: white;
+}
+
+.btn-primary:active,
+.btn-primary:focus,
+.btn-primary:hover {
+  background-color: #bf8e97;
+}

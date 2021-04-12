@@ -1,0 +1,27 @@
+/* Empty page placeholder */
+.placeholder-container {
+  width: 50%;
+  margin: auto;
+  margin-top: 20%;
+}
+
+.placeholder-logo {
+  display: block;
+  margin: auto;
+  opacity: 0.5;
+  padding: 10px;
+}
+
+.placeholder-msg {
+  width: 80%;
+  text-align: center;
+  display: block;
+  margin: auto;
+  padding: 10px;
+}
+
+.placeholder-link {
+  display: block;
+  margin: auto;
+  width: max-content;
+}

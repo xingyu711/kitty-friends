@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../Images/kitty-friends-logo.svg';
 import Particles from 'react-particles-js';
+import './LandingPage.css';
 
 const particlesOption = {
   particles: {

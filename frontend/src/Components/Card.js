@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { SuitHeart, SuitHeartFill, Trash } from 'react-bootstrap-icons';
+import PropTypes from 'prop-types';
+import './Card.css';
 
 export default function Card(props) {
   const cat = props.cat;
@@ -101,3 +103,11 @@ export default function Card(props) {
     </div>
   );
 }
+
+Card.propTypes = {
+  cat: PropTypes.object,
+  catId: PropTypes.string,
+  parentPage: PropTypes.string,
+  handleUnsave: PropTypes.func,
+  handleDelete: PropTypes.func,
+};

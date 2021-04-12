@@ -78,6 +78,7 @@ async function registerUser(username, password, firstname, lastname) {
       password: password,
       first_name: firstname,
       last_name: lastname,
+      saved_cats: [],
     };
     await users.insertOne(newUser);
 

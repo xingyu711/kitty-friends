@@ -1,0 +1,30 @@
+/* Card */
+.card {
+  width: 20rem;
+}
+
+.cat-pic {
+  height: 20rem;
+  width: 100%;
+  object-fit: cover;
+}
+
+.card-text {
+  padding: 2px;
+}
+
+.action-icon {
+  font-size: 20pt;
+  cursor: pointer;
+  color: gray;
+}
+
+.heart:hover,
+.trash:hover,
+.heart-fill {
+  color: #cf929e;
+}
+
+.heart-fill:hover {
+  color: #b6807f;
+}

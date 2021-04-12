@@ -22,6 +22,7 @@ export default function MyCollectionsPage() {
 
       if (resRaw.status === 401) {
         history.push('/');
+        return;
       }
 
       setSavedCats(res.cats);
@@ -36,7 +37,7 @@ export default function MyCollectionsPage() {
     };
 
     getSavedCats();
-  }, [currentPage]);
+  }, [currentPage, history]);
 
   function handleUnsave(catId) {
     const newCats = [];

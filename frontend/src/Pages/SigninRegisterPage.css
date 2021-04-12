@@ -1,0 +1,48 @@
+/* Sign In and Register page */
+#sign-in-container,
+#register-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+#sign-in-content,
+#register-content {
+  text-align: center;
+}
+
+.footer-text {
+  margin-top: 10px;
+}
+
+#sign-in-button,
+#register-button {
+  width: 320px;
+  margin-top: 20px;
+}
+
+.sign-in-input,
+.register-input {
+  width: 320px;
+  margin-top: 20px;
+  margin-bottom: 26px;
+}
+
+#welcome-message {
+  font-size: 22px;
+  margin-top: 30px;
+}
+
+#sign-in-logo {
+  width: 200px;
+}
+
+#register-logo {
+  width: 200px;
+  margin-bottom: 30px;
+}
+
+.error-msg {
+  color: red;
+}

@@ -36,7 +36,7 @@ export default function MyPostsPage() {
     };
 
     getPostedCats();
-  }, [currentPage]);
+  }, [currentPage, history]);
 
   function handlePageChange(page) {
     setCurrentPage(page);

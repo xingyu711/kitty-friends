@@ -4,7 +4,7 @@ var router = express.Router();
 const myDB = require('../db/myDB.js');
 
 const bcrypt = require('bcrypt');
-const saltRounds = 20;
+const saltRounds = 10;
 
 function auth(req, res) {
   if (!req.session.username) {
@@ -40,10 +40,6 @@ router.get('/getCats', async (req, res) => {
 /* Register a user */
 router.post('/registerUser', async (req, res) => {
   try {
-    if (!auth(req, res)) {
-      return;
-    }
-
     const username = req.body.username;
     const password = req.body.password;
     const firstname = req.body.firstname;

@@ -1,0 +1,21 @@
+/* Navigation */
+nav {
+  font-size: 18px;
+}
+
+.navbar-container {
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+}
+
+.navbar-light .navbar-nav .nav-link.active,
+.navbar-light .nav-item .nav-link:focus,
+.navbar-light .nav-item:hover .nav-link {
+  color: #cf929e;
+}
+
+.navbar-brand {
+  font-size: 22px;
+}

@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import './Pagination.css';
 
 const NUM_BUTTONS = 5;
 
@@ -173,3 +175,9 @@ export default function Pagination({
     </nav>
   );
 }
+
+Pagination.propTypes = {
+  numPages: PropTypes.number,
+  currentPage: PropTypes.number,
+  handlePageChange: PropTypes.func,
+};

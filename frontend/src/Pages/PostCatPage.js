@@ -2,55 +2,9 @@ import React, { useState } from 'react';
 import S3 from 'react-aws-s3';
 import env from 'react-dotenv';
 import Navigation from '../Components/Navigation.js';
+import { catBreeds, catAges, catSizes, catGenders } from '../constants.js';
 import validator from 'validator';
-
-const catBreeds = [
-  'Persian',
-  'American Shorthair',
-  'Siamese',
-  'Domestic Long Hair',
-  'Domestic Short Hair',
-  'Domestic Medium Hair',
-  'Snowshoe',
-  'Dilute Tortoiseshell',
-  'Dilute Calico',
-  'Russian Blue',
-  'Maine Coon',
-  'Calico',
-  'Tabby',
-  'Tiger',
-  'Bengal',
-  'Turkish Angora',
-  'Turkish Van',
-  'Tuxedo',
-  'Torbie',
-  'Bombay',
-  'Devon Rex',
-  'Tortoiseshell',
-  'Ragdoll',
-  'Abyssinian',
-  'Havana',
-  'Exotic Shorthair',
-  'Egyptian Mau',
-  'Burmese',
-  'Birman',
-  'Tonkinese',
-  'Balinese',
-  'Chausie',
-  'Himalayan',
-  'American Bobtail',
-  'Manx',
-  'Ragamuffin',
-  'Norwegian Forest Cat',
-  'Scottish Fold',
-  'Siberian',
-];
-
-const catAges = ['Baby', 'Young', 'Adult', 'Senior'];
-
-const catSizes = ['Small', 'Median', 'Large', 'Extra Large'];
-
-const catGenders = ['Female', 'Male'];
+import './PostCatPage.css';
 
 // connect to AWS S3 for uploading cat images
 const config = {

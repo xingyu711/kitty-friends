@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import logo from '../Images/kitty-friends-logo.svg';
+import './SigninRegisterPage.css';
 
 export default function SignInPage() {
   const [username, setUsername] = useState('');
