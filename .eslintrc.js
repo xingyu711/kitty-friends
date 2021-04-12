@@ -8,6 +8,9 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 12,
     sourceType: 'module',
+    ecmaFeatures: {
+      jsx: true,
+    },
   },
   rules: {
     indent: ['error', 2],
@@ -15,4 +18,6 @@ module.exports = {
     quotes: ['error', 'single'],
     semi: ['error', 'always'],
   },
+  plugins: ['react'],
+  settings: { react: { version: '17.0' } },
 };

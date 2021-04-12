@@ -54,6 +54,8 @@ export default function Homepage() {
     };
 
     getCats();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage, reload, history]);
 
   function handlePageChange(page) {
