@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import S3 from 'react-aws-s3';
 import env from 'react-dotenv';
 import Navigation from '../Components/Navigation.js';
+import validator from 'validator';
 
 const catBreeds = [
   'Persian',
@@ -70,40 +71,52 @@ export default function PostCatPage() {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [photo, setPhoto] = useState({});
-  const [showErrMsg, setShowErrMsg] = useState(false);
+  const [showEmptyFieldErr, setShowEmptyFieldErr] = useState(false);
+  const [showInvalidEmailErr, setShowInvalidEmailErr] = useState(false);
+  const [showInvalidPhoneErr, setShowInvalidPhoneErr] = useState(false);
   const [showSuccessMsg, setShowSuccessMsg] = useState(false);
+  const [showUploadFail, setShowUploadFail] = useState(false);
 
   function handlePost() {
     if (breed && age && size && gender && email && phone && photo) {
-      // TODO: Validate email and phone number
+      // Validate email
+      if (!validator.isEmail(email)) {
+        setShowInvalidEmailErr(true);
+      }
+      // validate phone
+      else if (!validator.isMobilePhone(phone, 'en-US')) {
+        setShowInvalidPhoneErr(true);
+      } else {
+        // upload photo to aws s3 and store to db
+        ReactS3Client.uploadFile(photo)
+          .then(async (data) => {
+            const photoUrl = data.location;
+            const resRaw = await fetch('/postCat', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                breed: breed,
+                age: age,
+                size: size,
+                gender: gender,
+                email: email,
+                phone: phone,
+                photo: photoUrl,
+              }),
+            });
 
-      // upload photo to aws s3 and store to db
-      ReactS3Client.uploadFile(photo)
-        .then(async (data) => {
-          const photoUrl = data.location;
-          const resRaw = await fetch('/postCat', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              breed: breed,
-              age: age,
-              size: size,
-              gender: gender,
-              email: email,
-              phone: phone,
-              photo: photoUrl,
-            }),
-          });
-
-          if (resRaw.ok) {
-            setShowSuccessMsg(true);
-          }
-        })
-        .catch((err) => console.error(err));
+            if (resRaw.ok) {
+              setShowSuccessMsg(true);
+            } else {
+              setShowUploadFail(true);
+            }
+          })
+          .catch((err) => console.error(err));
+      }
     } else {
-      setShowErrMsg(true);
+      setShowEmptyFieldErr(true);
     }
   }
 
@@ -124,13 +137,18 @@ export default function PostCatPage() {
               id="breedInput"
               onChange={(evt) => {
                 setBreed(evt.target.value);
-                setShowErrMsg(false);
+                setShowEmptyFieldErr(false);
+                setShowInvalidEmailErr(false);
+                setShowInvalidPhoneErr(false);
                 setShowSuccessMsg(false);
+                setShowUploadFail(false);
               }}
             >
               <option value=""> </option>
               {catBreeds.map((breed) => (
-                <option value={breed}>{breed}</option>
+                <option key={breed} value={breed}>
+                  {breed}
+                </option>
               ))}
             </select>
           </div>
@@ -145,13 +163,18 @@ export default function PostCatPage() {
               id="ageInput"
               onChange={(evt) => {
                 setAge(evt.target.value);
-                setShowErrMsg(false);
+                setShowEmptyFieldErr(false);
+                setShowInvalidEmailErr(false);
+                setShowInvalidPhoneErr(false);
                 setShowSuccessMsg(false);
+                setShowUploadFail(false);
               }}
             >
               <option value=""> </option>
               {catAges.map((age) => (
-                <option value={age}>{age}</option>
+                <option key={age} value={age}>
+                  {age}
+                </option>
               ))}
             </select>
           </div>
@@ -166,13 +189,18 @@ export default function PostCatPage() {
               id="sizeInput"
               onChange={(evt) => {
                 setSize(evt.target.value);
-                setShowErrMsg(false);
+                setShowEmptyFieldErr(false);
+                setShowInvalidEmailErr(false);
+                setShowInvalidPhoneErr(false);
                 setShowSuccessMsg(false);
+                setShowUploadFail(false);
               }}
             >
               <option value=""> </option>
               {catSizes.map((size) => (
-                <option value={size}>{size}</option>
+                <option key={size} value={size}>
+                  {size}
+                </option>
               ))}
             </select>
           </div>
@@ -187,13 +215,18 @@ export default function PostCatPage() {
               id="genderInput"
               onChange={(evt) => {
                 setGender(evt.target.value);
-                setShowErrMsg(false);
+                setShowEmptyFieldErr(false);
+                setShowInvalidEmailErr(false);
+                setShowInvalidPhoneErr(false);
                 setShowSuccessMsg(false);
+                setShowUploadFail(false);
               }}
             >
               <option value=""> </option>
               {catGenders.map((gender) => (
-                <option value={gender}>{gender}</option>
+                <option key={gender} value={gender}>
+                  {gender}
+                </option>
               ))}
             </select>
           </div>
@@ -209,8 +242,11 @@ export default function PostCatPage() {
               id="emailInput"
               onChange={(evt) => {
                 setEmail(evt.target.value);
-                setShowErrMsg(false);
+                setShowEmptyFieldErr(false);
+                setShowInvalidEmailErr(false);
+                setShowInvalidPhoneErr(false);
                 setShowSuccessMsg(false);
+                setShowUploadFail(false);
               }}
             />
           </div>
@@ -226,8 +262,11 @@ export default function PostCatPage() {
               id="phoneInput"
               onChange={(evt) => {
                 setPhone(evt.target.value);
-                setShowErrMsg(false);
+                setShowEmptyFieldErr(false);
+                setShowInvalidEmailErr(false);
+                setShowInvalidPhoneErr(false);
                 setShowSuccessMsg(false);
+                setShowUploadFail(false);
               }}
             />
           </div>
@@ -242,8 +281,11 @@ export default function PostCatPage() {
               id="catPhotoFile"
               onChange={(evt) => {
                 setPhoto(evt.target.files[0]);
-                setShowErrMsg(false);
+                setShowEmptyFieldErr(false);
+                setShowInvalidEmailErr(false);
+                setShowInvalidPhoneErr(false);
                 setShowSuccessMsg(false);
+                setShowUploadFail(false);
               }}
             />
           </div>
@@ -252,11 +294,28 @@ export default function PostCatPage() {
             Submit
           </button>
 
-          {showErrMsg && (
+          {showEmptyFieldErr && (
             <div className="m-3 error-msg">Please fill in all the fields.</div>
           )}
 
+          {showInvalidEmailErr && (
+            <div className="m-3 error-msg">Please enter a valid email.</div>
+          )}
+
+          {showInvalidPhoneErr && (
+            <div className="m-3 error-msg">
+              Please enter a valid phone number.
+            </div>
+          )}
+
           {showSuccessMsg && <div className="m-3">Successfully uploaded!</div>}
+
+          {showUploadFail && (
+            <div className="m-3 error-msg">
+              Fail to upload. Please wait for us to fix the error and try again
+              later.
+            </div>
+          )}
         </div>
       </div>
     </div>

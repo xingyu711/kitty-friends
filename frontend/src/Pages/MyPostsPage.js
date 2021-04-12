@@ -43,7 +43,6 @@ export default function MyPostsPage() {
   }
 
   function handleDelete(catId) {
-    console.log('calling handleDelete');
     const newCats = [];
     postedCats.forEach((cat) => {
       if (cat._id !== catId) {

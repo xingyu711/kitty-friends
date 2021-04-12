@@ -183,8 +183,7 @@ router.post('/postCat', async (req, res) => {
     // get username from session and add username to data object
     const username = req.session.username;
 
-    // get data from request body. ASSUMED: data in correct format and photo is a url string
-    console.log(req.body);
+    // get data from request body.
     const catData = req.body;
     catData.username = username;
 
@@ -207,8 +206,8 @@ router.post('/deletePost', async (req, res) => {
     const username = req.session.username;
     const catId = req.body.cat_id;
 
-    await myDB.deleteFromPosts(username, catId);
-    res.sendStatus(200);
+    const fileName = await myDB.deleteFromPosts(username, catId);
+    res.status(200).send({ fileName: fileName });
   } catch (e) {
     console.error('Error', e);
     res.status(400).send({ err: e });
