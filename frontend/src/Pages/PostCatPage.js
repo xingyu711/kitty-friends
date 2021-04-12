@@ -24,7 +24,7 @@ export default function PostCatPage() {
   const [gender, setGender] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-  const [photo, setPhoto] = useState({});
+  const [photo, setPhoto] = useState(null);
   const [showEmptyFieldErr, setShowEmptyFieldErr] = useState(false);
   const [showInvalidEmailErr, setShowInvalidEmailErr] = useState(false);
   const [showInvalidPhoneErr, setShowInvalidPhoneErr] = useState(false);

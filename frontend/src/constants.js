@@ -42,6 +42,6 @@ export const catBreeds = [
 
 export const catAges = ['Baby', 'Young', 'Adult', 'Senior'];
 
-export const catSizes = ['Small', 'Median', 'Large', 'Extra Large'];
+export const catSizes = ['Small', 'Medium', 'Large', 'Extra Large'];
 
 export const catGenders = ['Female', 'Male'];

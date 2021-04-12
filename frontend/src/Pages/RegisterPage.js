@@ -15,7 +15,6 @@ export default function RegisterPage() {
   const history = useHistory();
 
   async function handleSubmit(evt) {
-    console.log('calling submit register');
     evt.preventDefault();
 
     // clear error message
@@ -24,7 +23,6 @@ export default function RegisterPage() {
     if (!firstname || !lastname || !username || !password || !passwordConfirm) {
       setErrorMsg('Please fill in all fields');
     } else if (isPasswordMatched) {
-      console.log('ready to call backend');
       const resRaw = await fetch('/registerUser', {
         method: 'POST',
         headers: {
@@ -37,8 +35,6 @@ export default function RegisterPage() {
           lastname: lastname,
         }),
       });
-
-      console.log(resRaw);
 
       if (!resRaw.ok) {
         const msg = await resRaw.json();
