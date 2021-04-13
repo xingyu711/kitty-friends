@@ -22,7 +22,7 @@ app.use(
     resave: false, // don't save session if unmodified
     saveUninitialized: false, // don't create session until something stored
     store: MongoStore.create({
-      mongoUrl: `mmongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.aijdj.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`,
+      mongoUrl: `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.aijdj.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`,
       ttl: 3 * 24 * 60 * 60, // session expires in 3 days
     }),
   })

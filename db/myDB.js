@@ -3,7 +3,7 @@ const ObjectId = require('mongodb').ObjectId;
 require('dotenv').config(); //call dotenv to load variables from the .env file
 
 const DB_NAME = process.env.DB_NAME;
-const uri = `mmongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.aijdj.mongodb.net/${DB_NAME}?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.aijdj.mongodb.net/${DB_NAME}?retryWrites=true&w=majority`;
 
 const RECORDS_PER_PAGE = 20;
 
