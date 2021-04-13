@@ -1,4 +1,0 @@
-window.env = {
-  "S3_ACCESS_KEY_ID": "AKIAVMJP4RWPX6FIHRAR",
-  "S3_ACCESS_KEY": "TlLI24sbmw3pgQJ8ivdO4TRBCK9pUk+L1AmeRq+5"
-};

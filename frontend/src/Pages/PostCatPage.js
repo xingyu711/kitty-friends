@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import S3 from 'react-aws-s3';
-import env from 'react-dotenv';
 import Navigation from '../Components/Navigation.js';
 import { catBreeds, catAges, catSizes, catGenders } from '../constants.js';
 import validator from 'validator';
@@ -11,8 +10,8 @@ const config = {
   bucketName: 'kitty-friends-bucket',
   dirName: 'media' /* optional */,
   region: 'us-west-1',
-  accessKeyId: env.S3_ACCESS_KEY_ID,
-  secretAccessKey: env.S3_ACCESS_KEY,
+  accessKeyId: process.env.REACT_APP_S3_ACCESS_KEY_ID,
+  secretAccessKey: process.env.REACT_APP_S3_ACCESS_KEY,
 };
 
 const ReactS3Client = new S3(config);
