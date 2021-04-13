@@ -1,7 +1,7 @@
 ### App Name: Kitty Friends
 
 Kitty Friends is an online application helping cats to find new homes. <br>
-Link: will update soon
+Link: https://kitty-friends-app.herokuapp.com/
 
 ### App Features:
 
@@ -49,13 +49,7 @@ Hao Yin: https://pages.github.ccs.neu.edu/calvinyin/calvinyin.github.io/
 2. Clone this repository
 3. Configs for the backend:
 
-- Create a `.env` file in the root folder, and add your mongoDB username, password and DB name in this formart
-
-```
-DB_USER = yourUsername
-DB_PASSWORD = yourPassword
-DB_NAME = yourDBName
-```
+- Create a `.env` file in the root folder and add the following mongoDB credentials as environmental variables: `DB_USER, DB_PASSWORD, DB_NAME`
 
 - Run `yarn install` in terminal to install all the dependencies for the backend
 - Run `yarn start` to start the backend server
@@ -63,23 +57,18 @@ DB_NAME = yourDBName
 4. Configs for the frontend:
 
 - Go to the frontend folder `cd frontend`
-- Create a `.env` file in the frontend folder, and add your AWS S3 access key in this formart
-
-```
-S3_ACCESS_KEY_ID = yourS3KeyId
-S3_ACCESS_KEY = yourS3Key
-```
+- Adding the followin credentials for Amazon S3 as environmental variables in your terminal: ` S3_ACCESS_KEY_ID, S3_ACCESS_KEY`
 
 - Run `yarn install` to install all the dependencies for the frontend
 - Run `yarn start` to start the frontend server
 
 ### Video Demo:
 
-Will update soon
+https://drive.google.com/file/d/1pwfLkbC89aSV5b6hXObRevv8ctxOBVcM/view?usp=sharing
 
 ### Slides:
 
-Will update soon
+https://docs.google.com/presentation/d/1oHSIaTM5l8kA-42WVPsfLQjQN2KlMi3PxGfd9cCcUD4/edit?usp=sharing
 
 ### Course:
 
