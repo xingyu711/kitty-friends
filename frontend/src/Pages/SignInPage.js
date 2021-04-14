@@ -10,6 +10,8 @@ export default function SignInPage() {
 
   const history = useHistory();
 
+  // I think you can use useeffect to get current user at here. If the user is logged in, 
+  // the app should redirect to home page.
   async function handleSubmit(evt) {
     evt.preventDefault();
 
