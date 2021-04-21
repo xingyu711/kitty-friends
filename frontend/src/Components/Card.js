@@ -12,56 +12,62 @@ export default function Card(props) {
 
   const [isSaved, setIsSaved] = useState(props.isSaved);
 
-  async function saveCat() {
-    const resRaw = await fetch('/saveCat', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        cat_id: catId,
-      }),
-    });
+  async function saveCat(evt) {
+    if (!evt.key || evt.key === 'Enter') {
+      const resRaw = await fetch('/saveCat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          cat_id: catId,
+        }),
+      });
 
-    if (resRaw.ok) {
-      setIsSaved(!isSaved);
-    }
-  }
-
-  async function unSaveCat() {
-    const resRaw = await fetch('/unsaveCat', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        cat_id: catId,
-      }),
-    });
-
-    if (resRaw.ok) {
-      setIsSaved(!isSaved);
-
-      if (parentPage === 'MyCollectionsPage') {
-        handleUnsave(catId);
+      if (resRaw.ok) {
+        setIsSaved(!isSaved);
       }
     }
   }
 
-  async function deleteCat() {
-    const resRaw = await fetch('/deletePost', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        cat_id: catId,
-      }),
-    });
+  async function unSaveCat(evt) {
+    if (!evt.key || evt.key === 'Enter') {
+      const resRaw = await fetch('/unsaveCat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          cat_id: catId,
+        }),
+      });
 
-    if (resRaw.ok) {
-      if (parentPage === 'MyPostsPage') {
-        handleDelete(catId);
+      if (resRaw.ok) {
+        setIsSaved(!isSaved);
+
+        if (parentPage === 'MyCollectionsPage') {
+          handleUnsave(catId);
+        }
+      }
+    }
+  }
+
+  async function deleteCat(evt) {
+    if (!evt.key || evt.key === 'Enter') {
+      const resRaw = await fetch('/deletePost', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          cat_id: catId,
+        }),
+      });
+
+      if (resRaw.ok) {
+        if (parentPage === 'MyPostsPage') {
+          handleDelete(catId);
+        }
       }
     }
   }
@@ -84,12 +90,16 @@ export default function Card(props) {
           <Trash
             className="me-1 float-end action-icon trash"
             onClick={deleteCat}
+            onKeyDown={deleteCat}
+            tabIndex="0"
           />
         )}
         {parentPage !== 'MyPostsPage' && isSaved && (
           <SuitHeartFill
             className="me-1 float-end action-icon heart-fill"
             onClick={unSaveCat}
+            onKeyDown={unSaveCat}
+            tabIndex="0"
           />
         )}
 
@@ -97,6 +107,8 @@ export default function Card(props) {
           <SuitHeart
             className="me-1 float-end action-icon heart"
             onClick={saveCat}
+            onKeyDown={saveCat}
+            tabIndex="0"
           />
         )}
       </div>
