@@ -23,6 +23,7 @@ export default function Navigation() {
               'navbar-brand' + (location.pathname === '/home' ? ' active' : '')
             }
             to="/home"
+            id="nav-app-name"
           >
             Kitty Friends
           </Link>

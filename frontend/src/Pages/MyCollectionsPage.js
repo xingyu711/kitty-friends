@@ -76,6 +76,8 @@ export default function MyCollectionsPage() {
             linkToMsg="Explore"
           />
         )}
+
+        <h4 className="content-title">My Collections</h4>
         <div className="d-flex flex-wrap justify-content-center">
           {savedCats.map((cat) => (
             <Card

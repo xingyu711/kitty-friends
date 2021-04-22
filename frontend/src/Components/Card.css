@@ -20,11 +20,14 @@
 }
 
 .heart:hover,
+.heart:focus,
 .trash:hover,
+.trash:focus,
 .heart-fill {
   color: #cf929e;
 }
 
-.heart-fill:hover {
+.heart-fill:hover,
+.heart-fill:focus {
   color: #b6807f;
 }

@@ -1,5 +1,15 @@
 body {
   color: #575757;
+  font-family: 'Nunito Sans', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Raleway', sans-serif;
 }
 
 /* Customize all <a> tags */
@@ -14,4 +24,8 @@ a:hover {
 /* common container styling for web content */
 .content-container {
   margin-top: 100px;
+}
+
+.content-title {
+  text-align: center;
 }

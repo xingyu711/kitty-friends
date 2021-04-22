@@ -75,6 +75,7 @@ export default function MyPostsPage() {
             linkToMsg="Post A Cat"
           />
         )}
+        <h4 className="content-title">My Posts</h4>
         <div className="d-flex flex-wrap justify-content-center">
           {postedCats.map((cat) => (
             <Card
