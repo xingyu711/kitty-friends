@@ -1,13 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../Images/kitty-friends-logo.svg';
+import catpaw from '../Images/cat-paw.svg';
 import Particles from 'react-particles-js';
 import './LandingPage.css';
 
 const particlesOption = {
   particles: {
+    shape: {
+      type: 'images',
+      image: [{ src: catpaw, height: 50, width: 50 }],
+    },
     number: {
-      value: 160,
+      value: 100,
       density: {
         enable: false,
       },
@@ -16,11 +21,11 @@ const particlesOption = {
       value: '#CF929E',
     },
     size: {
-      value: 3,
+      value: 10,
       random: true,
       anim: {
-        speed: 4,
-        size_min: 0.3,
+        speed: 1,
+        size_min: 0.5,
       },
     },
     line_linked: {
@@ -46,13 +51,13 @@ const particlesOption = {
     },
     modes: {
       bubble: {
-        distance: 250,
+        distance: 200,
         duration: 2,
         size: 0,
         opacity: 0,
       },
       repulse: {
-        distance: 400,
+        distance: 250,
         duration: 4,
       },
     },
