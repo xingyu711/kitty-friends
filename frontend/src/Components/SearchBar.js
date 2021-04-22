@@ -17,6 +17,7 @@ export default function SearchBar(props) {
           <select
             className="form-select"
             name="breed"
+            aria-label="breed"
             onChange={(evt) => {
               handleQueryBreed(evt.target.value);
             }}
@@ -34,6 +35,7 @@ export default function SearchBar(props) {
           <select
             className="form-select"
             name="age"
+            aria-label="age"
             onChange={(evt) => {
               handleQueryAge(evt.target.value);
             }}
@@ -51,6 +53,7 @@ export default function SearchBar(props) {
           <select
             className="form-select"
             name="size"
+            aria-label="size"
             onChange={(evt) => {
               handleQuerySize(evt.target.value);
             }}
@@ -68,6 +71,7 @@ export default function SearchBar(props) {
           <select
             className="form-select"
             name="gender"
+            aria-label="gender"
             onChange={(evt) => {
               handleQueryGender(evt.target.value);
             }}

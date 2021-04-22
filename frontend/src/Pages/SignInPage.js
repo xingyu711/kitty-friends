@@ -35,9 +35,9 @@ export default function SignInPage() {
   return (
     <div>
       <div id="sign-in-container">
-        <div id="sign-in-content">
-          <img src={logo} id="sign-in-logo" alt="Kitty Friends Logo" />
-          <p id="welcome-message">Welcome Back</p>
+        <div id="sign-in-content" role="main">
+          <img src={logo} id="sign-register-logo" alt="Kitty Friends Logo" />
+          <h1 id="welcome-message">Welcome Back</h1>
 
           <form>
             <div className="form-floating mb-4 sign-in-input">

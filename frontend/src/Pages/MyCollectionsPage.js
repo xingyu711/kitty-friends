@@ -68,7 +68,7 @@ export default function MyCollectionsPage() {
   return (
     <div>
       <Navigation />
-      <div className="content-container">
+      <div className="content-container" role="main">
         {showPlaceholder && (
           <EmptyPagePlaceholder
             msg="You haven't saved any furry friends yet."
@@ -77,7 +77,7 @@ export default function MyCollectionsPage() {
           />
         )}
 
-        <h4 className="content-title">My Collections</h4>
+        <h1 className="content-title">My Collections</h1>
         <div className="d-flex flex-wrap justify-content-center">
           {savedCats.map((cat) => (
             <Card

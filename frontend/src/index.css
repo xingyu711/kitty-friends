@@ -14,11 +14,11 @@ h6 {
 
 /* Customize all <a> tags */
 a {
-  color: #cf929e;
+  color: #b6586d;
 }
 
 a:hover {
-  color: #aa7a83;
+  color: #984355;
 }
 
 /* common container styling for web content */
@@ -28,4 +28,5 @@ a:hover {
 
 .content-title {
   text-align: center;
+  font-size: 24px;
 }

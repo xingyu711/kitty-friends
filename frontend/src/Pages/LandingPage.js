@@ -61,8 +61,13 @@ const particlesOption = {
 export default function LandingPage() {
   return (
     <div>
-      <Particles className="particles" params={particlesOption} />
-      <nav className="navbar navbar-expand-lg navbar-light bg-white">
+      <div role="complementary">
+        <Particles className="particles" params={particlesOption} />
+      </div>
+      <nav
+        role="navigation"
+        className="navbar navbar-expand-lg navbar-light bg-white"
+      >
         <div className="container-fluid">
           <button
             className="navbar-toggler"
@@ -91,16 +96,17 @@ export default function LandingPage() {
           </div>
         </div>
       </nav>
-      <div id="landing-page-container">
+
+      <div id="landing-page-container" role="main">
         <div id="landing-page-content">
           <img id="kitty-friends-logo" src={logo} alt="Kitty Friends Logo" />
-          <p id="landing-page-text">
+          <h1 id="landing-page-text">
             Kitty Friends is an online application for cats who need homes. At
             Kitty Friends, pet lovers can search for a pet that best matches
             their needs. They can then contact the owener using the email or
             phone number for more details. Kitty Friends also allow users to
             post cats and help them find a new home soon.{' '}
-          </p>
+          </h1>
         </div>
       </div>
     </div>

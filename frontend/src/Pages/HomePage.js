@@ -85,7 +85,10 @@ export default function Homepage() {
   return (
     <div>
       <Navigation />
-      <div className="content-container">
+      <div className="content-container" role="main">
+        <h1 className="content-title">
+          Browse our cats and get personalized cat matches
+        </h1>
         <SearchBar
           handleQueryBreed={handleQueryBreed}
           handleQueryAge={handleQueryAge}

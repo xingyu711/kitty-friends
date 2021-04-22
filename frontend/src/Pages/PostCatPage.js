@@ -77,10 +77,10 @@ export default function PostCatPage() {
     <div>
       <Navigation />
       <div className="post-container">
-        <div className="post-content cat-input">
-          <h4 className="content-title" id="post-info-title">
+        <div className="post-content cat-input" role="main">
+          <h1 className="content-title" id="post-info-title">
             Post a cat for adoption
-          </h4>
+          </h1>
 
           <div className="input-group mb-4">
             <label htmlFor="breedInput" className="form-label post-label">

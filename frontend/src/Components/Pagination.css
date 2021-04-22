@@ -20,13 +20,13 @@
 
 /* Customize button */
 .btn-primary {
-  background-color: #cf929e;
-  border: #cf929e;
+  background-color: #b6586d;
+  border: #b6586d;
   color: white;
 }
 
 .btn-primary:active,
 .btn-primary:focus,
 .btn-primary:hover {
-  background-color: #bf8e97;
+  background-color: #a7495d;
 }

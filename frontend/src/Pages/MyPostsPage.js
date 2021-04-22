@@ -67,7 +67,7 @@ export default function MyPostsPage() {
   return (
     <div>
       <Navigation />
-      <div className="content-container">
+      <div className="content-container" role="main">
         {showPlaceholder && (
           <EmptyPagePlaceholder
             msg="You haven't posted any furry friends yet."
@@ -75,7 +75,7 @@ export default function MyPostsPage() {
             linkToMsg="Post A Cat"
           />
         )}
-        <h4 className="content-title">My Posts</h4>
+        <h1 className="content-title">My Posts</h1>
         <div className="d-flex flex-wrap justify-content-center">
           {postedCats.map((cat) => (
             <Card

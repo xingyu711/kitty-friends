@@ -58,8 +58,9 @@ export default function RegisterPage() {
   return (
     <div>
       <div id="register-container">
-        <div id="register-content">
-          <img src={logo} id="register-logo" alt="Kitty Friends Logo" />
+        <div id="register-content" role="main">
+          <img src={logo} id="sign-register-logo" alt="Kitty Friends Logo" />
+          <h1 id="welcome-message">Welcome to Kitty Friends</h1>
           <form>
             <div className="form-floating mb-3">
               <input

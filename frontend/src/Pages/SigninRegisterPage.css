@@ -31,16 +31,12 @@
 
 #welcome-message {
   font-size: 22px;
-  margin-top: 30px;
-}
-
-#sign-in-logo {
-  width: 200px;
-}
-
-#register-logo {
-  width: 200px;
+  margin-top: 40px;
   margin-bottom: 30px;
+}
+
+#sign-register-logo {
+  width: 200px;
 }
 
 .error-msg {
