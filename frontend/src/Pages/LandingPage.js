@@ -108,9 +108,9 @@ export default function LandingPage() {
           <h1 id="landing-page-text">
             Kitty Friends is an online application for cats who need homes. At
             Kitty Friends, pet lovers can search for a pet that best matches
-            their needs. They can then contact the owener using the email or
+            their needs. They can then contact the owner using the email or
             phone number for more details. Kitty Friends also allow users to
-            post cats and help them find a new home soon.{' '}
+            post cats and help them find a new home soon.
           </h1>
         </div>
       </div>

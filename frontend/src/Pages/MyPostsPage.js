@@ -75,7 +75,7 @@ export default function MyPostsPage() {
             linkToMsg="Post A Cat"
           />
         )}
-        <h1 className="content-title">My Posts</h1>
+        {!showPlaceholder && <h1 className="content-title">My Posts</h1>}
         <div className="d-flex flex-wrap justify-content-center">
           {postedCats.map((cat) => (
             <Card

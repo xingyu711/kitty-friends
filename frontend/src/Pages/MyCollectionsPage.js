@@ -77,7 +77,7 @@ export default function MyCollectionsPage() {
           />
         )}
 
-        <h1 className="content-title">My Collections</h1>
+        {!showPlaceholder && <h1 className="content-title">My Collections</h1>}
         <div className="d-flex flex-wrap justify-content-center">
           {savedCats.map((cat) => (
             <Card
