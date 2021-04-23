@@ -11,6 +11,9 @@ export default function MyCollectionsPage() {
   const [numPages, setNumPages] = useState(0);
   const [showPlaceholder, setShowPlaceholder] = useState(false);
 
+  // state for showwing loading spinner
+  const [showDataLoader, setShowDataLoader] = useState(true);
+
   const history = useHistory();
 
   useEffect(() => {
@@ -27,6 +30,7 @@ export default function MyCollectionsPage() {
 
       setSavedCats(res.cats);
       setNumPages(res.numPages);
+      setShowDataLoader(false);
 
       if (res.cats.length === 0) {
         setShowPlaceholder(true);
@@ -62,6 +66,7 @@ export default function MyCollectionsPage() {
   }
 
   function handlePageChange(page) {
+    setShowDataLoader(true);
     setCurrentPage(page);
   }
 
@@ -78,18 +83,28 @@ export default function MyCollectionsPage() {
         )}
 
         {!showPlaceholder && <h1 className="content-title">My Collections</h1>}
-        <div className="d-flex flex-wrap justify-content-center">
-          {savedCats.map((cat) => (
-            <Card
-              cat={cat}
-              key={cat._id}
-              id={cat._id}
-              isSaved={true}
-              handleUnsave={handleUnsave}
-              parentPage={'MyCollectionsPage'}
-            />
-          ))}
-        </div>
+
+        {showDataLoader && (
+          <div
+            className="spinner-border data-loader text-secondary mt-5 mb-5"
+            role="status"
+          ></div>
+        )}
+
+        {!showDataLoader && (
+          <div className="d-flex flex-wrap justify-content-center">
+            {savedCats.map((cat) => (
+              <Card
+                cat={cat}
+                key={cat._id}
+                id={cat._id}
+                isSaved={true}
+                handleUnsave={handleUnsave}
+                parentPage={'MyCollectionsPage'}
+              />
+            ))}
+          </div>
+        )}
 
         {numPages > 1 && (
           <Pagination

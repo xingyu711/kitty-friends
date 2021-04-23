@@ -18,6 +18,9 @@ export default function Homepage() {
   const [queryGender, setQueryGender] = useState('');
   const [reload, setReload] = useState(0);
 
+  // state for showwing loading spinner
+  const [showDataLoader, setShowDataLoader] = useState(true);
+
   const history = useHistory();
 
   useEffect(() => {
@@ -48,9 +51,7 @@ export default function Homepage() {
 
       setCats(res.cats);
       setNumPages(res.numPages);
-
-      // automatically scroll to the top of the page
-      window.scrollTo(0, 0);
+      setShowDataLoader(false);
     };
 
     getCats();
@@ -59,6 +60,7 @@ export default function Homepage() {
   }, [currentPage, reload, history]);
 
   function handlePageChange(page) {
+    setShowDataLoader(true);
     setCurrentPage(page);
   }
 
@@ -97,16 +99,25 @@ export default function Homepage() {
           handleSearchButtonClick={handleSearchButtonClick}
         />
 
-        <div className="d-flex flex-wrap justify-content-center">
-          {cats.map((cat) => (
-            <Card
-              cat={cat}
-              key={cat._id}
-              id={cat._id}
-              isSaved={savedCats.includes(cat._id)}
-            />
-          ))}
-        </div>
+        {showDataLoader && (
+          <div
+            className="spinner-border data-loader text-secondary mt-5 mb-5"
+            role="status"
+          ></div>
+        )}
+
+        {!showDataLoader && (
+          <div className="d-flex flex-wrap justify-content-center">
+            {cats.map((cat) => (
+              <Card
+                cat={cat}
+                key={cat._id}
+                id={cat._id}
+                isSaved={savedCats.includes(cat._id)}
+              />
+            ))}
+          </div>
+        )}
 
         {numPages > 1 && (
           <Pagination

@@ -11,6 +11,9 @@ export default function MyPostsPage() {
   const [numPages, setNumPages] = useState(0);
   const [showPlaceholder, setShowPlaceholder] = useState(false);
 
+  // state for showwing loading spinner
+  const [showDataLoader, setShowDataLoader] = useState(true);
+
   const history = useHistory();
 
   useEffect(() => {
@@ -26,6 +29,7 @@ export default function MyPostsPage() {
 
       setPostedCats(res.cats);
       setNumPages(res.numPages);
+      setShowDataLoader(false);
 
       if (res.cats.length === 0) {
         setShowPlaceholder(true);
@@ -39,6 +43,7 @@ export default function MyPostsPage() {
   }, [currentPage, history]);
 
   function handlePageChange(page) {
+    setShowDataLoader(true);
     setCurrentPage(page);
   }
 
@@ -76,17 +81,27 @@ export default function MyPostsPage() {
           />
         )}
         {!showPlaceholder && <h1 className="content-title">My Posts</h1>}
-        <div className="d-flex flex-wrap justify-content-center">
-          {postedCats.map((cat) => (
-            <Card
-              cat={cat}
-              key={cat._id}
-              id={cat._id}
-              parentPage={'MyPostsPage'}
-              handleDelete={handleDelete}
-            />
-          ))}
-        </div>
+
+        {showDataLoader && (
+          <div
+            className="spinner-border data-loader text-secondary mt-5 mb-5"
+            role="status"
+          ></div>
+        )}
+
+        {!showDataLoader && (
+          <div className="d-flex flex-wrap justify-content-center">
+            {postedCats.map((cat) => (
+              <Card
+                cat={cat}
+                key={cat._id}
+                id={cat._id}
+                parentPage={'MyPostsPage'}
+                handleDelete={handleDelete}
+              />
+            ))}
+          </div>
+        )}
 
         {numPages > 1 && (
           <Pagination

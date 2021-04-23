@@ -10,9 +10,13 @@ export default function Card(props) {
   const handleDelete = props.handleDelete;
   const parentPage = props.parentPage;
 
+  // state for showwing loading spinner
+  const [showActionLoader, setShowActionLoader] = useState(false);
+
   const [isSaved, setIsSaved] = useState(props.isSaved);
 
   async function saveCat(evt) {
+    setShowActionLoader(true);
     if (!evt.key || evt.key === 'Enter') {
       const resRaw = await fetch('/saveCat', {
         method: 'POST',
@@ -26,11 +30,13 @@ export default function Card(props) {
 
       if (resRaw.ok) {
         setIsSaved(!isSaved);
+        setShowActionLoader(false);
       }
     }
   }
 
   async function unSaveCat(evt) {
+    setShowActionLoader(true);
     if (!evt.key || evt.key === 'Enter') {
       const resRaw = await fetch('/unsaveCat', {
         method: 'POST',
@@ -44,6 +50,7 @@ export default function Card(props) {
 
       if (resRaw.ok) {
         setIsSaved(!isSaved);
+        setShowActionLoader(false);
 
         if (parentPage === 'MyCollectionsPage') {
           handleUnsave(catId);
@@ -53,6 +60,7 @@ export default function Card(props) {
   }
 
   async function deleteCat(evt) {
+    setShowActionLoader(true);
     if (!evt.key || evt.key === 'Enter') {
       const resRaw = await fetch('/deletePost', {
         method: 'POST',
@@ -65,6 +73,7 @@ export default function Card(props) {
       });
 
       if (resRaw.ok) {
+        setShowActionLoader(false);
         if (parentPage === 'MyPostsPage') {
           handleDelete(catId);
         }
@@ -86,7 +95,7 @@ export default function Card(props) {
         <div className="card-text">
           Phone: {cat.phone ? cat.phone : '666-777-8888'}
         </div>
-        {parentPage === 'MyPostsPage' && (
+        {!showActionLoader && parentPage === 'MyPostsPage' && (
           <Trash
             className="me-1 float-end action-icon trash"
             onClick={deleteCat}
@@ -94,7 +103,7 @@ export default function Card(props) {
             tabIndex="0"
           />
         )}
-        {parentPage !== 'MyPostsPage' && isSaved && (
+        {!showActionLoader && parentPage !== 'MyPostsPage' && isSaved && (
           <SuitHeartFill
             className="me-1 float-end action-icon heart-fill"
             onClick={unSaveCat}
@@ -103,13 +112,20 @@ export default function Card(props) {
           />
         )}
 
-        {parentPage !== 'MyPostsPage' && !isSaved && (
+        {!showActionLoader && parentPage !== 'MyPostsPage' && !isSaved && (
           <SuitHeart
             className="me-1 float-end action-icon heart"
             onClick={saveCat}
             onKeyDown={saveCat}
             tabIndex="0"
           />
+        )}
+
+        {showActionLoader && (
+          <div
+            className="me-1 float-end spinner-border action-loader text-secondary"
+            role="status"
+          ></div>
         )}
       </div>
     </div>
