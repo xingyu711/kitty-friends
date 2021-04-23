@@ -43,11 +43,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:8000",
-  "react-dotenv": {
-    "whitelist": [
-      "S3_ACCESS_KEY_ID",
-      "S3_ACCESS_KEY"
-    ]
-  }
+  "proxy": "http://localhost:8000"
 }

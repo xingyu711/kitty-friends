@@ -16,19 +16,23 @@ export default function SignInPage() {
     // clear error message
     setErrorMsg('');
 
-    const resRaw = await fetch('/loginUser', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ username: username, password: password }),
-    });
-
-    if (!resRaw.ok) {
-      const msg = await resRaw.json();
-      setErrorMsg(msg.login);
+    if (!username || !password) {
+      setErrorMsg('Please fill in all fields');
     } else {
-      history.push('/home');
+      const resRaw = await fetch('/loginUser', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username: username, password: password }),
+      });
+
+      if (!resRaw.ok) {
+        const msg = await resRaw.json();
+        setErrorMsg(msg.login);
+      } else {
+        history.push('/home');
+      }
     }
   }
 
@@ -48,6 +52,7 @@ export default function SignInPage() {
                 placeholder="Username"
                 onChange={(evt) => {
                   setUsername(evt.target.value);
+                  setErrorMsg('');
                 }}
               />
               <label htmlFor="usernameInput">Username</label>
@@ -60,6 +65,7 @@ export default function SignInPage() {
                 placeholder="Password"
                 onChange={(evt) => {
                   setPassword(evt.target.value);
+                  setErrorMsg('');
                 }}
               />
               <label htmlFor="passwordInput">Password</label>
