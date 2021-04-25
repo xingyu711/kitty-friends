@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { SuitHeart, SuitHeartFill, Trash } from 'react-bootstrap-icons';
 import PropTypes from 'prop-types';
 import './Card.css';
+import ReactTooltip from 'react-tooltip';
 
 export default function Card(props) {
   const cat = props.cat;
@@ -95,30 +96,64 @@ export default function Card(props) {
         <div className="card-text">
           Phone: {cat.phone ? cat.phone : '666-777-8888'}
         </div>
+
         {!showActionLoader && parentPage === 'MyPostsPage' && (
-          <Trash
-            className="me-1 float-end action-icon trash"
-            onClick={deleteCat}
-            onKeyDown={deleteCat}
-            tabIndex="0"
-          />
+          <div>
+            <Trash
+              className="me-1 float-end action-icon trash"
+              onClick={deleteCat}
+              onKeyDown={deleteCat}
+              tabIndex="0"
+              data-tip
+              data-for="delete-tooltip"
+            />
+            <ReactTooltip
+              id="delete-tooltip"
+              effect="solid"
+              backgroundColor="#575757"
+            >
+              Delete
+            </ReactTooltip>
+          </div>
         )}
         {!showActionLoader && parentPage !== 'MyPostsPage' && isSaved && (
-          <SuitHeartFill
-            className="me-1 float-end action-icon heart-fill"
-            onClick={unSaveCat}
-            onKeyDown={unSaveCat}
-            tabIndex="0"
-          />
+          <div>
+            <SuitHeartFill
+              className="me-1 float-end action-icon heart-fill"
+              onClick={unSaveCat}
+              onKeyDown={unSaveCat}
+              tabIndex="0"
+              data-tip
+              data-for="unsave-tooltip"
+            />
+            <ReactTooltip
+              id="unsave-tooltip"
+              effect="solid"
+              backgroundColor="#575757"
+            >
+              Unsave
+            </ReactTooltip>
+          </div>
         )}
 
         {!showActionLoader && parentPage !== 'MyPostsPage' && !isSaved && (
-          <SuitHeart
-            className="me-1 float-end action-icon heart"
-            onClick={saveCat}
-            onKeyDown={saveCat}
-            tabIndex="0"
-          />
+          <div>
+            <SuitHeart
+              className="me-1 float-end action-icon heart"
+              onClick={saveCat}
+              onKeyDown={saveCat}
+              tabIndex="0"
+              data-tip
+              data-for="save-tooltip"
+            />
+            <ReactTooltip
+              id="save-tooltip"
+              effect="solid"
+              backgroundColor="#575757"
+            >
+              Save
+            </ReactTooltip>
+          </div>
         )}
 
         {showActionLoader && (
