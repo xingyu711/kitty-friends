@@ -25,6 +25,7 @@ export default function PostCatPage() {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [photo, setPhoto] = useState(null);
+  const [file, setFile] = useState('');
 
   // using Toast to show error/success messages
   const { addToast } = useToasts();
@@ -80,6 +81,14 @@ export default function PostCatPage() {
                 appearance: 'success',
                 autoDismiss: true,
               });
+              setBreed('');
+              setAge('');
+              setSize('');
+              setGender('');
+              setEmail('');
+              setPhone('');
+              setPhoto(null);
+              setFile('');
             } else {
               addToast('Upload failed. Please try again later.', {
                 appearance: 'error',
@@ -120,14 +129,15 @@ export default function PostCatPage() {
               className="form-select"
               name="breed"
               id="breedInput"
+              value={breed}
               onChange={(evt) => {
                 setBreed(evt.target.value);
               }}
             >
               <option value=""> </option>
-              {catBreeds.map((breed) => (
-                <option key={breed} value={breed}>
-                  {breed}
+              {catBreeds.map((b) => (
+                <option key={b} value={b}>
+                  {b}
                 </option>
               ))}
             </select>
@@ -141,14 +151,15 @@ export default function PostCatPage() {
               className="form-select"
               name="age"
               id="ageInput"
+              value={age}
               onChange={(evt) => {
                 setAge(evt.target.value);
               }}
             >
               <option value=""> </option>
-              {catAges.map((age) => (
-                <option key={age} value={age}>
-                  {age}
+              {catAges.map((a) => (
+                <option key={a} value={a}>
+                  {a}
                 </option>
               ))}
             </select>
@@ -162,14 +173,15 @@ export default function PostCatPage() {
               className="form-select"
               name="size"
               id="sizeInput"
+              value={size}
               onChange={(evt) => {
                 setSize(evt.target.value);
               }}
             >
               <option value=""> </option>
-              {catSizes.map((size) => (
-                <option key={size} value={size}>
-                  {size}
+              {catSizes.map((s) => (
+                <option key={s} value={s}>
+                  {s}
                 </option>
               ))}
             </select>
@@ -183,14 +195,15 @@ export default function PostCatPage() {
               className="form-select"
               name="gender"
               id="genderInput"
+              value={gender}
               onChange={(evt) => {
                 setGender(evt.target.value);
               }}
             >
               <option value=""> </option>
-              {catGenders.map((gender) => (
-                <option key={gender} value={gender}>
-                  {gender}
+              {catGenders.map((g) => (
+                <option key={g} value={g}>
+                  {g}
                 </option>
               ))}
             </select>
@@ -205,6 +218,7 @@ export default function PostCatPage() {
               type="email"
               name="email"
               id="emailInput"
+              value={email}
               onChange={(evt) => {
                 setEmail(evt.target.value);
               }}
@@ -219,6 +233,7 @@ export default function PostCatPage() {
               className="form-control"
               type="phone"
               name="phone"
+              value={phone}
               id="phoneInput"
               onChange={(evt) => {
                 setPhone(evt.target.value);
@@ -234,8 +249,10 @@ export default function PostCatPage() {
               type="file"
               className="form-control"
               id="catPhotoFile"
+              value={file}
               onChange={(evt) => {
                 setPhoto(evt.target.files[0]);
+                setFile(evt.target.value);
               }}
             />
           </div>

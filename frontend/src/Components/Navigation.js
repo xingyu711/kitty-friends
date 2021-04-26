@@ -44,6 +44,17 @@ export default function Navigation() {
                 <Link
                   className={
                     'nav-link' +
+                    (location.pathname === '/home' ? ' active' : '')
+                  }
+                  to="/home"
+                >
+                  Home
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link
+                  className={
+                    'nav-link' +
                     (location.pathname === '/myCollections' ? ' active' : '')
                   }
                   to="/myCollections"
