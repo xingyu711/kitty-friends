@@ -15,7 +15,6 @@ export default function SearchBar(props) {
       <div className="row justify-content-center">
         <div className="mb-3 col-md-4 col-lg-3">
           <select
-            className="form-select"
             name="breed"
             aria-label="breed"
             onChange={(evt) => {
@@ -33,7 +32,6 @@ export default function SearchBar(props) {
 
         <div className="mb-3 col-md-3 col-lg-2">
           <select
-            className="form-select"
             name="age"
             aria-label="age"
             onChange={(evt) => {
@@ -51,7 +49,6 @@ export default function SearchBar(props) {
 
         <div className="mb-3 col-md-3 col-lg-2">
           <select
-            className="form-select"
             name="size"
             aria-label="size"
             onChange={(evt) => {
@@ -69,7 +66,6 @@ export default function SearchBar(props) {
 
         <div className="mb-3 col-md-3 col-lg-2">
           <select
-            className="form-select"
             name="gender"
             aria-label="gender"
             onChange={(evt) => {

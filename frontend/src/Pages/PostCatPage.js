@@ -126,7 +126,6 @@ export default function PostCatPage() {
               Breed
             </label>
             <select
-              className="form-select"
               name="breed"
               id="breedInput"
               value={breed}
@@ -148,7 +147,6 @@ export default function PostCatPage() {
               Age
             </label>
             <select
-              className="form-select"
               name="age"
               id="ageInput"
               value={age}
@@ -170,7 +168,6 @@ export default function PostCatPage() {
               Size
             </label>
             <select
-              className="form-select"
               name="size"
               id="sizeInput"
               value={size}
@@ -192,7 +189,6 @@ export default function PostCatPage() {
               Gender
             </label>
             <select
-              className="form-select"
               name="gender"
               id="genderInput"
               value={gender}

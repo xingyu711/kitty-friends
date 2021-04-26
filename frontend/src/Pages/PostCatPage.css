@@ -16,7 +16,7 @@
 }
 
 .post-label {
-  width: 120px;
+  width: 180px;
   text-align: left;
 }
 
@@ -33,4 +33,14 @@
 .post-button {
   width: 120px;
   margin-top: 20px;
+}
+
+.input-group {
+  flex-wrap: nowrap;
+}
+
+#emailInput,
+#phoneInput,
+#catPhotoFile {
+  width: 100%;
 }

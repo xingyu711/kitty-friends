@@ -104,16 +104,9 @@ export default function Card(props) {
               onClick={deleteCat}
               onKeyDown={deleteCat}
               tabIndex="0"
-              data-tip
-              data-for="delete-tooltip"
+              data-tip="Delete"
             />
-            <ReactTooltip
-              id="delete-tooltip"
-              effect="solid"
-              backgroundColor="#575757"
-            >
-              Delete
-            </ReactTooltip>
+            <ReactTooltip effect="solid" backgroundColor="#575757" />
           </div>
         )}
         {!showActionLoader && parentPage !== 'MyPostsPage' && isSaved && (
@@ -123,16 +116,9 @@ export default function Card(props) {
               onClick={unSaveCat}
               onKeyDown={unSaveCat}
               tabIndex="0"
-              data-tip
-              data-for="unsave-tooltip"
+              data-tip="Unsave"
             />
-            <ReactTooltip
-              id="unsave-tooltip"
-              effect="solid"
-              backgroundColor="#575757"
-            >
-              Unsave
-            </ReactTooltip>
+            <ReactTooltip effect="solid" backgroundColor="#575757" />
           </div>
         )}
 
@@ -143,16 +129,9 @@ export default function Card(props) {
               onClick={saveCat}
               onKeyDown={saveCat}
               tabIndex="0"
-              data-tip
-              data-for="save-tooltip"
+              data-tip="Save"
             />
-            <ReactTooltip
-              id="save-tooltip"
-              effect="solid"
-              backgroundColor="#575757"
-            >
-              Save
-            </ReactTooltip>
+            <ReactTooltip effect="solid" backgroundColor="#575757" />
           </div>
         )}
 
