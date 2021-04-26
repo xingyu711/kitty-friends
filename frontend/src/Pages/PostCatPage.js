@@ -4,6 +4,7 @@ import Navigation from '../Components/Navigation.js';
 import { catBreeds, catAges, catSizes, catGenders } from '../constants.js';
 import validator from 'validator';
 import './PostCatPage.css';
+import { useToasts } from 'react-toast-notifications';
 
 // connect to AWS S3 for uploading cat images
 const config = {
@@ -24,21 +25,36 @@ export default function PostCatPage() {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [photo, setPhoto] = useState(null);
-  const [showEmptyFieldErr, setShowEmptyFieldErr] = useState(false);
-  const [showInvalidEmailErr, setShowInvalidEmailErr] = useState(false);
-  const [showInvalidPhoneErr, setShowInvalidPhoneErr] = useState(false);
-  const [showSuccessMsg, setShowSuccessMsg] = useState(false);
-  const [showUploadFail, setShowUploadFail] = useState(false);
+
+  // using Toast to show error/success messages
+  const { addToast } = useToasts();
 
   function handlePost() {
     if (breed && age && size && gender && email && phone && photo) {
       // Validate email
       if (!validator.isEmail(email)) {
-        setShowInvalidEmailErr(true);
+        addToast('Please enter a valid email', {
+          appearance: 'warning',
+          autoDismiss: true,
+        });
       }
       // validate phone
       else if (!validator.isMobilePhone(phone, 'en-US')) {
-        setShowInvalidPhoneErr(true);
+        addToast('Please enter a valid phone number', {
+          appearance: 'warning',
+          autoDismiss: true,
+        });
+      }
+      // validate file type
+      else if (
+        photo.type !== 'image/jpg' &&
+        photo.type !== 'image/png' &&
+        photo.type !== 'image/jpeg'
+      ) {
+        addToast('Please use a valid image type (png, jpg or jpeg)', {
+          appearance: 'warning',
+          autoDismiss: true,
+        });
       } else {
         // upload photo to aws s3 and store to db
         ReactS3Client.uploadFile(photo)
@@ -59,17 +75,31 @@ export default function PostCatPage() {
                 photo: photoUrl,
               }),
             });
-
             if (resRaw.ok) {
-              setShowSuccessMsg(true);
+              addToast('Successfully uploaded!', {
+                appearance: 'success',
+                autoDismiss: true,
+              });
             } else {
-              setShowUploadFail(true);
+              addToast('Upload failed. Please try again later.', {
+                appearance: 'error',
+                autoDismiss: true,
+              });
             }
           })
-          .catch((err) => console.error(err));
+          .catch((err) => {
+            console.error(err);
+            addToast('Upload failed. Please try again later.', {
+              appearance: 'error',
+              autoDismiss: true,
+            });
+          });
       }
     } else {
-      setShowEmptyFieldErr(true);
+      addToast('Please fill in all the fields', {
+        appearance: 'warning',
+        autoDismiss: true,
+      });
     }
   }
 
@@ -92,11 +122,6 @@ export default function PostCatPage() {
               id="breedInput"
               onChange={(evt) => {
                 setBreed(evt.target.value);
-                setShowEmptyFieldErr(false);
-                setShowInvalidEmailErr(false);
-                setShowInvalidPhoneErr(false);
-                setShowSuccessMsg(false);
-                setShowUploadFail(false);
               }}
             >
               <option value=""> </option>
@@ -118,11 +143,6 @@ export default function PostCatPage() {
               id="ageInput"
               onChange={(evt) => {
                 setAge(evt.target.value);
-                setShowEmptyFieldErr(false);
-                setShowInvalidEmailErr(false);
-                setShowInvalidPhoneErr(false);
-                setShowSuccessMsg(false);
-                setShowUploadFail(false);
               }}
             >
               <option value=""> </option>
@@ -144,11 +164,6 @@ export default function PostCatPage() {
               id="sizeInput"
               onChange={(evt) => {
                 setSize(evt.target.value);
-                setShowEmptyFieldErr(false);
-                setShowInvalidEmailErr(false);
-                setShowInvalidPhoneErr(false);
-                setShowSuccessMsg(false);
-                setShowUploadFail(false);
               }}
             >
               <option value=""> </option>
@@ -170,11 +185,6 @@ export default function PostCatPage() {
               id="genderInput"
               onChange={(evt) => {
                 setGender(evt.target.value);
-                setShowEmptyFieldErr(false);
-                setShowInvalidEmailErr(false);
-                setShowInvalidPhoneErr(false);
-                setShowSuccessMsg(false);
-                setShowUploadFail(false);
               }}
             >
               <option value=""> </option>
@@ -197,11 +207,6 @@ export default function PostCatPage() {
               id="emailInput"
               onChange={(evt) => {
                 setEmail(evt.target.value);
-                setShowEmptyFieldErr(false);
-                setShowInvalidEmailErr(false);
-                setShowInvalidPhoneErr(false);
-                setShowSuccessMsg(false);
-                setShowUploadFail(false);
               }}
             />
           </div>
@@ -217,11 +222,6 @@ export default function PostCatPage() {
               id="phoneInput"
               onChange={(evt) => {
                 setPhone(evt.target.value);
-                setShowEmptyFieldErr(false);
-                setShowInvalidEmailErr(false);
-                setShowInvalidPhoneErr(false);
-                setShowSuccessMsg(false);
-                setShowUploadFail(false);
               }}
             />
           </div>
@@ -236,11 +236,6 @@ export default function PostCatPage() {
               id="catPhotoFile"
               onChange={(evt) => {
                 setPhoto(evt.target.files[0]);
-                setShowEmptyFieldErr(false);
-                setShowInvalidEmailErr(false);
-                setShowInvalidPhoneErr(false);
-                setShowSuccessMsg(false);
-                setShowUploadFail(false);
               }}
             />
           </div>
@@ -248,29 +243,6 @@ export default function PostCatPage() {
           <button className="btn btn-primary post-button" onClick={handlePost}>
             Submit
           </button>
-
-          {showEmptyFieldErr && (
-            <div className="m-3 error-msg">Please fill in all the fields.</div>
-          )}
-
-          {showInvalidEmailErr && (
-            <div className="m-3 error-msg">Please enter a valid email.</div>
-          )}
-
-          {showInvalidPhoneErr && (
-            <div className="m-3 error-msg">
-              Please enter a valid phone number.
-            </div>
-          )}
-
-          {showSuccessMsg && <div className="m-3">Successfully uploaded!</div>}
-
-          {showUploadFail && (
-            <div className="m-3 error-msg">
-              Fail to upload. Please wait for us to fix the error and try again
-              later.
-            </div>
-          )}
         </div>
       </div>
     </div>

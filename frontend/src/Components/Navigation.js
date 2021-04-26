@@ -70,7 +70,7 @@ export default function Navigation() {
                   }
                   to="/postCat"
                 >
-                  Post A Cat
+                  Post a Cat
                 </Link>
               </li>
             </ul>

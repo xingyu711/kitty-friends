@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { ToastProvider } from 'react-toast-notifications';
 import './App.css';
 import LandingPage from './Pages/LandingPage.js';
 import SignInPage from './Pages/SignInPage.js';
@@ -29,7 +30,9 @@ function App() {
           <MyPostsPage />
         </Route>
         <Route path="/postCat">
-          <PostCatPage />
+          <ToastProvider>
+            <PostCatPage />
+          </ToastProvider>
         </Route>
         <Route path="/">
           <LandingPage />
