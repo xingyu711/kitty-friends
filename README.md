@@ -15,6 +15,30 @@ Link: https://kitty-friends-app.herokuapp.com/
 Xingyu Lai: https://xingyu711.github.io/ <br>
 Hao Yin: https://pages.github.ccs.neu.edu/calvinyin/calvinyin.github.io/
 
+### Obejectives for Project 4:
+
+Improve the project 3 website on the design, accessibility and usability.
+
+### Features Improved/Added:
+
+1. Usability:
+
+- Using Toasts to show success/error messages
+- Add Tooltips for action icons (save/unsave/delete icon)
+- Add Loading Spinner
+
+2. Accessibility:
+
+- Control the app using keyboard
+- Add landmark roles
+- Sufficient color contrast
+- Test using Axe
+
+3. Design:
+
+- Typograph and color palatte
+- Proper spacing and alignment
+
 ### Screenshots:
 
 1. Landing page that introduces our app.
@@ -57,18 +81,18 @@ Hao Yin: https://pages.github.ccs.neu.edu/calvinyin/calvinyin.github.io/
 4. Configs for the frontend:
 
 - Go to the frontend folder `cd frontend`
-- Adding the followin credentials for Amazon S3 as environmental variables in your terminal: ` S3_ACCESS_KEY_ID, S3_ACCESS_KEY`
+- Adding the followin credentials for Amazon S3 as environmental variables in your terminal: ` REACT_S3_ACCESS_KEY_ID, REACT_S3_ACCESS_KEY`
 
 - Run `yarn install` to install all the dependencies for the frontend
 - Run `yarn start` to start the frontend server
 
 ### Video Demo:
 
-https://drive.google.com/file/d/1pwfLkbC89aSV5b6hXObRevv8ctxOBVcM/view?usp=sharing
+https://drive.google.com/file/d/1k5YM0h2Ku9_YkErx3vLPj8nrEVSDf1Eb/view?usp=sharing
 
 ### Slides:
 
-https://docs.google.com/presentation/d/1oHSIaTM5l8kA-42WVPsfLQjQN2KlMi3PxGfd9cCcUD4/edit?usp=sharing
+https://docs.google.com/presentation/d/1n0dkxiRRIWK5pN7TZb7aW0O4qd-FBt_7v-4QnZmtfJI/edit?usp=sharing
 
 ### Course:
 

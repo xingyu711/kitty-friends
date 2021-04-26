@@ -107,7 +107,7 @@ export default function LandingPage() {
           <img id="kitty-friends-logo" src={logo} alt="Kitty Friends Logo" />
           <h1 id="landing-page-text">
             Kitty Friends is an online application for cats who need homes. At
-            Kitty Friends, pet lovers can search for a pet that best matches
+            Kitty Friends, cat lovers can search for a cat that best matches
             their needs. They can then contact the owner using the email or
             phone number for more details. Kitty Friends also allow users to
             post cats and help them find a new home soon.

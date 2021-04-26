@@ -17,8 +17,8 @@ export default function Card(props) {
   const [isSaved, setIsSaved] = useState(props.isSaved);
 
   async function saveCat(evt) {
-    setShowActionLoader(true);
     if (!evt.key || evt.key === 'Enter') {
+      setShowActionLoader(true);
       const resRaw = await fetch('/saveCat', {
         method: 'POST',
         headers: {
@@ -37,8 +37,8 @@ export default function Card(props) {
   }
 
   async function unSaveCat(evt) {
-    setShowActionLoader(true);
     if (!evt.key || evt.key === 'Enter') {
+      setShowActionLoader(true);
       const resRaw = await fetch('/unsaveCat', {
         method: 'POST',
         headers: {
@@ -61,8 +61,8 @@ export default function Card(props) {
   }
 
   async function deleteCat(evt) {
-    setShowActionLoader(true);
     if (!evt.key || evt.key === 'Enter') {
+      setShowActionLoader(true);
       const resRaw = await fetch('/deletePost', {
         method: 'POST',
         headers: {
