@@ -23,7 +23,7 @@ Improve the project 3 website on the design, accessibility and usability.
 
 1. Usability:
 
-- Using Toasts to show success/error messages
+- Use Toasts to show success/error messages
 - Add Tooltips for action icons (save/unsave/delete icon)
 - Add Loading Spinner
 
