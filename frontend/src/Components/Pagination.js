@@ -27,6 +27,7 @@ export default function Pagination({
       }
     }
     // More than 5 pages
+    // it would be better to replace 3 with a const varaible.
     else {
       if (currentPage < 3) {
         res.push(
